@@ -1,6 +1,7 @@
-jdk:
- - openjdk8
-script:
-mvn build
+language: java
+sudo: false
+script: "mvn build"
 after_success:
+echo "Succesfully built"
 after_failure:
+echo "Failed build"
