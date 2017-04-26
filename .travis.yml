@@ -1,0 +1,6 @@
+jdk:
+ - openjdk8
+script:
+mvn build
+after_success:
+after_failure:
