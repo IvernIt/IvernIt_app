@@ -5,26 +5,20 @@
  */
 package com.ivernit.app;
 
-import java.awt.Dimension;
-import java.awt.HeadlessException;
-import javax.swing.JFrame;
+import com.ivernit.vista.MainFrame;
 
 /**
  *
  * @author sampru
  */
-public class App extends JFrame{
+public class App{
 
-  public App(String title) throws HeadlessException {
-    super(title);
-    this.setSize(new Dimension(720, 480));
-    this.setResizable(false);
-    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    this.setVisible(true);
+  public App() {
+      new MainFrame();
   }  
   
   public static void main(String[] args) {
-    new App("IvernIt - Gestion de invernaderos");
+    new App();
   }
   
 }
