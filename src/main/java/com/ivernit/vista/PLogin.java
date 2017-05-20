@@ -62,10 +62,10 @@ public class PLogin extends JPanel {
         pBotones.add(bRegistrarse);
         pBotones.add(bEntrar);
         pPrincipal.setBorder(BorderFactory.createEmptyBorder(30, 20, 10, 20));
-        pPrincipal.add(new AuxPane(lbUsuario));
-        pPrincipal.add(new AuxPane(tfUsuario));
-        pPrincipal.add(new AuxPane(lbContraseña));
-        pPrincipal.add(new AuxPane(pfContraseña));
+        pPrincipal.add(new NorthBorderPane(lbUsuario));
+        pPrincipal.add(new NorthBorderPane(tfUsuario));
+        pPrincipal.add(new NorthBorderPane(lbContraseña));
+        pPrincipal.add(new NorthBorderPane(pfContraseña));
         this.add(pTitulo, BorderLayout.NORTH);
         this.add(pPrincipal, BorderLayout.CENTER);
         this.add(pBotones, BorderLayout.SOUTH);

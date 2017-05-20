@@ -13,8 +13,8 @@ import javax.swing.JPanel;
  *
  * @author Pablo
  */
-public class AuxPane extends JPanel{
-    public AuxPane(JComponent c)
+public class NorthBorderPane extends JPanel{
+    public NorthBorderPane(JComponent c)
     {
         this.setLayout(new BorderLayout());
         this.add(c,BorderLayout.NORTH);
