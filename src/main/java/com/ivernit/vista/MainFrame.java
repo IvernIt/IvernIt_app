@@ -5,11 +5,11 @@
  */
 package com.ivernit.vista;
 
+import com.ivernit.utils.Strings;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -18,8 +18,7 @@ import javax.swing.JPanel;
 public class MainFrame extends JFrame{
     private final int xSize = 680;
     private final int ySize = 400;
-    private final String title = "IvernIt - Gestion de invernaderos";
-    
+    private MainMenuBar menu ;
     public MainFrame(){
         init();
     }
@@ -33,10 +32,13 @@ public class MainFrame extends JFrame{
         this.setLocation((int)( screenW/2 - xSize/2),((int)(  screenH/2 - ySize/2)));
         this.setPreferredSize(new Dimension(xSize, ySize));
         this.setResizable(false);
-        this.setTitle(title);        
+        this.setTitle(Strings.TITULO);        
+        menu = new MainMenuBar();
+        this.setJMenuBar(menu);
+        this.pack();
         contentPane = this.getContentPane();   
         contentPane.setLayout(null);
-        contentPane.add( new PLogin(xSize, ySize));
+        contentPane.add( new PGestion(contentPane.getWidth(), contentPane.getHeight()));
         this.pack();
         this.setVisible(true);
     }   
