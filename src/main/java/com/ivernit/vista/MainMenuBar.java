@@ -23,9 +23,9 @@ public class MainMenuBar extends JMenuBar{
 
     private void initComponents() {
 
-        JMenuItem miLogin = new JMenuItem();
-        JMenuItem miRegistrarse = new JMenuItem();
-        JMenuItem miCerrarSesion = new JMenuItem();        
+        JMenuItem miLogin = new JMenuItem(Strings.LOGIN);
+        JMenuItem miRegistrarse = new JMenuItem(Strings.REGISTRARSE);
+        JMenuItem miCerrarSesion = new JMenuItem(Strings.CERRAR_SESION);        
         JMenu mArchivo = new JMenu(Strings.ARCHIVO);
         mArchivo.add(miLogin);
         mArchivo.add(miRegistrarse);

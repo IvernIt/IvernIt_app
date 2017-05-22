@@ -38,7 +38,7 @@ public class MainFrame extends JFrame{
         this.pack();
         contentPane = this.getContentPane();   
         contentPane.setLayout(null);
-        contentPane.add( new PGestion(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add( new PanelGestion(contentPane.getWidth(), contentPane.getHeight()));
         this.pack();
         this.setVisible(true);
     }   

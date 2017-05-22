@@ -5,8 +5,6 @@
  */
 package com.ivernit.utils;
 
-import java.awt.Component;
-
 /**
  *
  * @author Pablo
@@ -30,4 +28,12 @@ public class Strings {
     public static String MODIFICAR = "Modificar";
     public static String RESULTADOS = "Resultados";
     public static String CONTROL_MANUAL = "Control Manual";
+    public static String CERRAR_SESION = "Cerrar Sesionm";
+    public static String VEGETAL = "Vegetal";
+    public static String ESTADO = "Estado";
+    public static String LITROS_METRO = "L / m2";
+    public static String HORAS_LUZ  = "Horas de luz";
+    public static String TEMPERATURA = "Temperatura";
+    public static String TIPO_TIERRA = "Tipo tierras";
+    
 }

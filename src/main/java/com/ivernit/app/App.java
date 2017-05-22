@@ -6,19 +6,25 @@
 package com.ivernit.app;
 
 import com.ivernit.vista.MainFrame;
+import javax.swing.UIManager;
 
 /**
  *
  * @author sampru
  */
-public class App{
+public class App {
 
-  public App() {
-      new MainFrame();
-  }  
-  
-  public static void main(String[] args) {
-    new App();
-  }
-  
+    public App() {
+        try {
+            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new MainFrame();
+    }
+
+    public static void main(String[] args) {
+        new App();
+    }
+
 }
