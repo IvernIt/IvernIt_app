@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ivernit.vista;
+package com.ivernit.vista.auxiliarControls;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -16,8 +16,8 @@ import javax.swing.ListModel;
  * @author Pablo
  */
 public class EditToolbar extends JToolBar{
-    ListModel model;
-    EditToolbar(ListModel model) {
+    SingleColTableModel model;
+    public EditToolbar(SingleColTableModel model) {
         this.model = model;
         initComponents();
     }

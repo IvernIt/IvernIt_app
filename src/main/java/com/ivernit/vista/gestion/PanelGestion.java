@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ivernit.vista;
+package com.ivernit.vista.gestion;
 
+import com.ivernit.vista.auxiliarControls.EditToolbar;
 import com.ivernit.utils.Strings;
+import com.ivernit.vista.auxiliarControls.SingleColTableModel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,7 +31,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
 
     private int width;
     private int height;
-    private JList lInvernderos;
+    private JTable tInvernderos;
     private JTabbedPane pGestion;
 
     public PanelGestion(int parentWidth, int parentHeight) {
@@ -50,19 +53,19 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         JPanel pInvernaderos = new JPanel();
         pInvernaderos.setLayout(new BorderLayout());
         JScrollPane spLista = new JScrollPane();
-        DefaultListModel lmInvernderos = new DefaultListModel();
-        lmInvernderos.addElement("invernadero1");
-        lmInvernderos.addElement("invernadero2");
-        lmInvernderos.addElement("invernadero3");
-        lInvernderos = new JList(lmInvernderos);
-        lInvernderos.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        lInvernderos.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        lInvernderos.setVisibleRowCount(-1);
-        lInvernderos.addListSelectionListener(this);
-        spLista.setViewportView(lInvernderos);
+        SingleColTableModel tmInvernderos = new SingleColTableModel();
+        tmInvernderos.setHeader(Strings.INVERNADEROS);
+        tmInvernderos.addElement("invernadero1");
+        tmInvernderos.addElement("invernadero2");
+        tmInvernderos.addElement("invernadero3");
+        tInvernderos = new JTable(tmInvernderos);
+        tInvernderos.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tInvernderos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tInvernderos.getSelectionModel().addListSelectionListener(this);
+        spLista.setViewportView(tInvernderos);
         spLista.setPreferredSize(new Dimension(width / 5, height));
         pInvernaderos.add(spLista, BorderLayout.CENTER);
-        pInvernaderos.add(new EditToolbar(lmInvernderos), BorderLayout.PAGE_START);
+        pInvernaderos.add(new EditToolbar(tmInvernderos), BorderLayout.PAGE_START);
         return pInvernaderos;
     }
 

@@ -6,6 +6,9 @@
 package com.ivernit.vista;
 
 import com.ivernit.utils.Strings;
+import com.ivernit.vista.gestion.PanelGestion;
+import com.ivernit.vista.inicio.PanelLogin;
+import com.ivernit.vista.inicio.PanelRegistro;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -16,10 +19,12 @@ import javax.swing.JFrame;
  * @author Pablo
  */
 public class MainFrame extends JFrame{
+    private static MainFrame mainFrame = null;
     private final int xSize = 680;
     private final int ySize = 400;
     private MainMenuBar menu ;
     public MainFrame(){
+        mainFrame = this;
         init();
     }
 
@@ -38,9 +43,29 @@ public class MainFrame extends JFrame{
         this.pack();
         contentPane = this.getContentPane();   
         contentPane.setLayout(null);
-        contentPane.add( new PanelGestion(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add( new PanelLogin(contentPane.getWidth(), contentPane.getHeight()));
         this.pack();
         this.setVisible(true);
     }   
+    public void mostrarRegistro()
+    {
+        Container contentPane = this.getContentPane();
+        contentPane.removeAll();
+        contentPane.add( new PanelRegistro(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.repaint();
+    }
     
+    public void mostrarGestion()
+    {
+        Container contentPane = this.getContentPane();
+        contentPane.removeAll();
+        contentPane.add( new PanelGestion(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.repaint();
+    }
+    public static MainFrame get()
+    {
+        return mainFrame;
+    }
+            
+            
 }

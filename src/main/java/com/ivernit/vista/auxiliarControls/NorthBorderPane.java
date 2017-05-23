@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ivernit.vista;
+package com.ivernit.vista.auxiliarControls;
 
 import java.awt.BorderLayout;
 import javax.swing.JComponent;

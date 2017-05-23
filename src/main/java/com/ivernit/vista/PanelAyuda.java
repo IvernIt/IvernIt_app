@@ -5,15 +5,12 @@
  */
 package com.ivernit.vista;
 
-import javax.swing.JPanel;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Pablo
  */
-public class PanelControl extends JPanel{
-
-    public PanelControl() {
-    }
+public class PanelAyuda extends JInternalFrame{
     
 }
