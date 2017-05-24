@@ -5,7 +5,7 @@
  */
 package com.ivernit.vista.gestion;
 
-import com.ivernit.IvernitActionListeners;
+import com.ivernit.vista.control.IvernitActionListeners;
 import com.ivernit.vista.auxiliarControls.ControlButton;
 import com.ivernit.utils.Strings;
 import java.awt.GridLayout;

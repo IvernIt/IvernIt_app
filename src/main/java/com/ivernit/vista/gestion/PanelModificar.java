@@ -63,7 +63,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         spVegetales.setViewportView(tVegetales);
         spVegetales.setPreferredSize(new Dimension(135, 100000));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
-        pVegetales.add(new EditToolbar(tmVegetales), BorderLayout.PAGE_START);
+        pVegetales.add(new EditToolbar(tVegetales), BorderLayout.PAGE_START);
         return pVegetales;
 
     }

@@ -65,7 +65,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         spLista.setViewportView(tInvernderos);
         spLista.setPreferredSize(new Dimension(width / 5, height));
         pInvernaderos.add(spLista, BorderLayout.CENTER);
-        pInvernaderos.add(new EditToolbar(tmInvernderos), BorderLayout.PAGE_START);
+        pInvernaderos.add(new EditToolbar(tInvernderos), BorderLayout.PAGE_START);
         return pInvernaderos;
     }
 

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ivernit;
+package com.ivernit.vista.control;
 
-import com.ivernit.vista.MainFrame;
+import com.ivernit.vista.mainFrame.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,6 +28,14 @@ public class IvernitActionListeners implements ActionListener {
     public final static String APAGAR_CALEFACCION = "apagarCalef";
     public final static String ENCENDER_LUCES = "encenderLuces";
     public final static String APAGAR_LUCES = "apagarLuces";
+    public final static String PEDIR_AYUDA = "pedirAyuda";
+    public final static String ENVIAR_AYUDA = "enviarAyuda";
+    public final static String MENU_LOGIN = "login";
+    public final static String CERRAR_SESION = "cerrarSesion";
+    public final static String IMPORTAR_INVERNADERO = "importarInvernadero";
+    public final static String VER_INVERNADEROS = "verInvernaderos";
+    public final static String PERFIL = "perfil";
+    public final static String ACERCA_DE = "acercaDe";
 
     public static IvernitActionListeners get() {
         if (listener == null) {
@@ -43,6 +51,7 @@ public class IvernitActionListeners implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case ENTRAR:
+                MainFrame.get().mostrarGestion();
                 break;
             case REGISTRO:
                 MainFrame.get().mostrarRegistro();
@@ -66,6 +75,25 @@ public class IvernitActionListeners implements ActionListener {
             case ENCENDER_LUCES:
                 break;
             case APAGAR_LUCES:
+                break;
+            case ENVIAR_AYUDA:
+                break;
+            case PEDIR_AYUDA:
+                MainFrame.get().mostrarAyuda();
+                break;
+            case MENU_LOGIN:
+                MainFrame.get().mostrarLogin();
+                break;
+            case CERRAR_SESION:
+                break;
+            case IMPORTAR_INVERNADERO:
+                break;
+            case VER_INVERNADEROS:
+                MainFrame.get().mostrarGestion();
+                break;
+            case PERFIL:
+                break;
+            case ACERCA_DE:
                 break;
             default:
                 break;

@@ -5,7 +5,7 @@
  */
 package com.ivernit.app;
 
-import com.ivernit.vista.MainFrame;
+import com.ivernit.vista.mainFrame.MainFrame;
 import javax.swing.UIManager;
 
 /**

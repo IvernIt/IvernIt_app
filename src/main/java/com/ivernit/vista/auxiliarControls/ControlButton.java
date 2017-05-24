@@ -5,7 +5,7 @@
  */
 package com.ivernit.vista.auxiliarControls;
 
-import com.ivernit.IvernitActionListeners;
+import com.ivernit.vista.control.IvernitActionListeners;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 

@@ -5,7 +5,7 @@
  */
 package com.ivernit.vista.inicio;
 
-import com.ivernit.IvernitActionListeners;
+import com.ivernit.vista.control.IvernitActionListeners;
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.ControlButton;
