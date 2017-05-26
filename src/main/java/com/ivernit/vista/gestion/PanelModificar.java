@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class PanelModificar extends JPanel implements ListSelectionListener {
 
     String[] columnNames = {
-        Strings.LITROS_METRO,
+        Strings.RIEGO,
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
@@ -59,6 +59,10 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         tmVegetales.addElement("Cebollas 02/012017");
         tVegetales = new JTable(tmVegetales);
         tVegetales.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         tVegetales.getSelectionModel().addListSelectionListener(this);
         spVegetales.setViewportView(tVegetales);
         spVegetales.setPreferredSize(new Dimension(135, 100000));
@@ -93,6 +97,10 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         tmEstados.addElement("Maduracion");
         tEstados = new JTable(tmEstados);
         tEstados.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        try {
+            tEstados.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         tEstados.getSelectionModel().addListSelectionListener(this);
         spEstados.setViewportView(tEstados);
         spEstados.setPreferredSize(new Dimension(135, 0));
@@ -103,7 +111,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private JPanel crearPanelCultivoIdeal() {
         JPanel pIdeal = new JPanel(new GridLayout(4, 2));
         pIdeal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        JLabel lAgua = new JLabel(Strings.LITROS_METRO);
+        JLabel lAgua = new JLabel(Strings.RIEGO);
         JLabel lLuz = new JLabel(Strings.HORAS_LUZ);
         JLabel lTemperatura = new JLabel(Strings.TEMPERATURA);
         JLabel lTipoTierra = new JLabel(Strings.TIPO_TIERRA);
@@ -139,16 +147,12 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() instanceof ListSelectionModel) {
             ListSelectionModel source = (ListSelectionModel) e.getSource();
-            if (source == tEstados.getSelectionModel()) 
-            {
+            if (source == tEstados.getSelectionModel()) {
 
-            } else if (source == tVegetales.getSelectionModel()) 
-            {
+            } else if (source == tVegetales.getSelectionModel()) {
 
-            }
-            else if(source == tParametros.getSelectionModel())
-            {
-                
+            } else if (source == tParametros.getSelectionModel()) {
+
             }
         }
     }

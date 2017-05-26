@@ -46,6 +46,7 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         this.setTitle(Strings.TITULO);
         menu = new MainMenuBar();
+        menu.inicioSesion();
         this.setJMenuBar(menu);
         this.pack();
         contentPane = this.getContentPane();
@@ -66,6 +67,7 @@ public class MainFrame extends JFrame {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
         contentPane.add(new PanelGestion(contentPane.getWidth(), contentPane.getHeight()));
+        menu.sesionIniciada();
         this.revalidate();
     }
 
@@ -79,6 +81,7 @@ public class MainFrame extends JFrame {
     public void mostrarLogin() {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
+        menu.inicioSesion();
         contentPane.add(new PanelLogin(contentPane.getWidth(), contentPane.getHeight()));
         contentPane.repaint();
     }

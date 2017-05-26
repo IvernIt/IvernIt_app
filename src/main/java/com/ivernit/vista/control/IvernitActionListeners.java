@@ -85,6 +85,7 @@ public class IvernitActionListeners implements ActionListener {
                 MainFrame.get().mostrarLogin();
                 break;
             case CERRAR_SESION:
+                MainFrame.get().mostrarLogin();
                 break;
             case IMPORTAR_INVERNADERO:
                 break;

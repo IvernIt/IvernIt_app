@@ -15,8 +15,16 @@ import javax.swing.JMenuItem;
  *
  * @author Pablo
  */
-public class MainMenuBar extends JMenuBar{
-    
+public class MainMenuBar extends JMenuBar {
+
+    private JMenuItem miLogin;
+    private JMenuItem miRegistrarse;
+    private JMenuItem miCerrarSesion;
+    private JMenuItem miImportartInv;
+    private JMenuItem miVerInvernderos;
+    private JMenuItem miVerPerfil;
+    private JMenuItem miPedirAsistencia;
+    private JMenuItem miAcercaDe;
 
     public MainMenuBar() {
         initComponents();
@@ -24,18 +32,18 @@ public class MainMenuBar extends JMenuBar{
 
     private void initComponents() {
 
-        JMenuItem miLogin = nuevoItem(Strings.LOGIN, IvernitActionListeners.MENU_LOGIN);
-        JMenuItem miRegistrarse = nuevoItem(Strings.REGISTRO,IvernitActionListeners.REGISTRO);
-        JMenuItem miCerrarSesion = nuevoItem(Strings.CERRAR_SESION, IvernitActionListeners.CERRAR_SESION);        
+        miLogin = nuevoItem(Strings.LOGIN, IvernitActionListeners.MENU_LOGIN);
+        miRegistrarse = nuevoItem(Strings.REGISTRO, IvernitActionListeners.REGISTRO);
+        miCerrarSesion = nuevoItem(Strings.CERRAR_SESION, IvernitActionListeners.CERRAR_SESION);
         JMenu mArchivo = new JMenu(Strings.ARCHIVO);
         JMenu mInvernadero = new JMenu(Strings.INVERNADERO);
-        JMenuItem miImportartInv = nuevoItem(Strings.IMPORTAR_INVERNADERO, IvernitActionListeners.IMPORTAR_INVERNADERO); 
-        JMenuItem miVerInvernderos = nuevoItem(Strings.INVERNADEROS, IvernitActionListeners.VER_INVERNADEROS); 
-        JMenuItem miVerPerfil = nuevoItem(Strings.PERFIL, IvernitActionListeners.PERFIL);
-        JMenu mVer = new JMenu(Strings.VER); 
+        miImportartInv = nuevoItem(Strings.IMPORTAR_INVERNADERO, IvernitActionListeners.IMPORTAR_INVERNADERO);
+        miVerInvernderos = nuevoItem(Strings.INVERNADEROS, IvernitActionListeners.VER_INVERNADEROS);
+        miVerPerfil = nuevoItem(Strings.PERFIL, IvernitActionListeners.PERFIL);
+        JMenu mVer = new JMenu(Strings.VER);
         JMenu mAyuda = new JMenu(Strings.AYUDA);
-        JMenuItem miPedirAsistencia = nuevoItem(Strings.PEDIR_ASISTENCIA, IvernitActionListeners.PEDIR_AYUDA); 
-        JMenuItem miAcercaDe = nuevoItem(Strings.ACERCA_DE, IvernitActionListeners.ACERCA_DE); 
+        miPedirAsistencia = nuevoItem(Strings.PEDIR_ASISTENCIA, IvernitActionListeners.PEDIR_AYUDA);
+        miAcercaDe = nuevoItem(Strings.ACERCA_DE, IvernitActionListeners.ACERCA_DE);
         mArchivo.add(miLogin);
         mArchivo.add(miRegistrarse);
         mArchivo.add(miCerrarSesion);
@@ -47,17 +55,37 @@ public class MainMenuBar extends JMenuBar{
         this.add(mArchivo);
         this.add(mInvernadero);
         this.add(mVer);
-        this.add(mAyuda);    
-        
+        this.add(mAyuda);
+
     }
-    
+
     private JMenuItem nuevoItem(String texto, String actionCommand) {
         JMenuItem item = new JMenuItem(texto);
         item.addActionListener(IvernitActionListeners.get());
         item.setActionCommand(actionCommand);
         return item;
     }
+
+    public void inicioSesion() {
+        miLogin.setEnabled(true);
+        miRegistrarse.setEnabled(true);
+        miCerrarSesion.setEnabled(false);
+        miImportartInv.setEnabled(false);
+        miVerInvernderos.setEnabled(false);
+        miVerPerfil.setEnabled(false);
+        miPedirAsistencia.setEnabled(false);
+        miAcercaDe.setEnabled(false);
+    }
     
-    
-    
+    public void sesionIniciada() {
+        miLogin.setEnabled(false);
+        miRegistrarse.setEnabled(false);
+        miCerrarSesion.setEnabled(true);
+        miImportartInv.setEnabled(true);
+        miVerInvernderos.setEnabled(true);
+        miVerPerfil.setEnabled(true);
+        miPedirAsistencia.setEnabled(true);
+        miAcercaDe.setEnabled(true);
+    }
+
 }

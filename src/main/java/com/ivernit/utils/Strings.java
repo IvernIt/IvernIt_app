@@ -33,7 +33,7 @@ public class Strings {
     public static String CERRAR_SESION = "Cerrar Sesion";
     public static String VEGETAL = "Vegetal";
     public static String ESTADO = "Estado";
-    public static String LITROS_METRO = "L / m2";
+    public static String RIEGO = "Riego";
     public static String HORAS_LUZ  = "Horas de luz";
     public static String TEMPERATURA = "Temperatura";
     public static String TIPO_TIERRA = "Tipo tierras";

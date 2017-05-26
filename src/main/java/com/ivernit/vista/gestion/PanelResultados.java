@@ -26,14 +26,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pablo
  */
-public class PanelResultados extends JPanel implements ListSelectionListener{
+public class PanelResultados extends JPanel implements ListSelectionListener {
 
     private JTable tVegetales;
     private JTextField tfResultado;
     private JTable tParametros;
     String[] columnNames = {
         Strings.ESTADO,
-        Strings.LITROS_METRO,
+        Strings.RIEGO,
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
@@ -79,9 +79,13 @@ public class PanelResultados extends JPanel implements ListSelectionListener{
         tmVegetales.addElement("Cebollas 02/012017");
         tVegetales = new JTable(tmVegetales);
         tVegetales.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         tVegetales.getSelectionModel().addListSelectionListener(this);
         spVegetales.setViewportView(tVegetales);
-        spVegetales.setPreferredSize(new Dimension(135,0));
+        spVegetales.setPreferredSize(new Dimension(135, 0));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
         return pVegetales;
 
@@ -98,10 +102,10 @@ public class PanelResultados extends JPanel implements ListSelectionListener{
         JPanel pNota = new JPanel(new GridLayout(1, 2));
         pNota.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         JLabel lResultado = new JLabel(Strings.RESULTADO + " : ");
-        lResultado.setFont(new Font(Font.SANS_SERIF,0,31));
+        lResultado.setFont(new Font(Font.SANS_SERIF, 0, 31));
         lResultado.setHorizontalAlignment(JLabel.RIGHT);
         tfResultado = new JTextField("A");
-        tfResultado.setFont(new Font(Font.SANS_SERIF,Font.BOLD,72));
+        tfResultado.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 72));
         tfResultado.setHorizontalAlignment(JTextField.CENTER);
         pNota.add(lResultado);
         pNota.add(tfResultado);
@@ -113,6 +117,10 @@ public class PanelResultados extends JPanel implements ListSelectionListener{
         JScrollPane spParametros = new JScrollPane();
         DefaultTableModel tmParametros = new DefaultTableModel(data, columnNames);
         tParametros = new JTable(tmParametros);
+        try {
+            tParametros.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         spParametros.setViewportView(tParametros);
         pParametros.add(spParametros, BorderLayout.CENTER);
         return pParametros;
@@ -120,7 +128,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener{
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        
+
     }
 
 }

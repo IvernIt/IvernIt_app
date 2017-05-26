@@ -23,7 +23,7 @@ public class PanelVer extends JPanel {
     public PanelVer() {
         String[] columnNames = {Strings.VEGETAL,
             Strings.ESTADO,
-            Strings.LITROS_METRO,
+            Strings.RIEGO,
             Strings.HORAS_LUZ,
             Strings.TEMPERATURA,
             Strings.TIPO_TIERRA};
