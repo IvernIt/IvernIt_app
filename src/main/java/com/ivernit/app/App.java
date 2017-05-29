@@ -6,6 +6,11 @@
 package com.ivernit.app;
 
 import com.ivernit.vista.mainFrame.MainFrame;
+import com.ivernit.dao.DAOConexion;
+import com.ivernit.dao.DAOInvernadero;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -13,14 +18,29 @@ import javax.swing.UIManager;
  * @author sampru
  */
 public class App {
+    
+    DAOConexion connecter = new DAOConexion("com.mysql.jdbc.Driver","jdbc:mysql://sampru.sytes.net/IvernIt?user=ivernit&password=1vern1t");
+    Connection conexion;
+    DAOInvernadero invernadero;
 
     public App() {
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
         new MainFrame();
+        
+        try {
+            conexion = connecter.conectar();
+            invernadero = new DAOInvernadero(conexion);
+            invernadero.getInvernaderoPorUsr("menendez");
+            
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public static void main(String[] args) {
