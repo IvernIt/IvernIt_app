@@ -35,7 +35,6 @@ public class App {
         try {
             conexion = connecter.conectar();
             invernadero = new DAOInvernadero(conexion);
-            invernadero.getInvernaderoPorUsr("menendez");
             
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

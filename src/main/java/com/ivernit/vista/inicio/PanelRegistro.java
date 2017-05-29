@@ -10,6 +10,7 @@ import com.ivernit.utils.Strings;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.PopupMenu;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -72,5 +73,11 @@ public class PanelRegistro extends JInternalFrame{
         this.add(pPrincipal, BorderLayout.CENTER);
         this.add(pBotones, BorderLayout.SOUTH);
         this.setVisible(true);
+    }
+
+    public PanelRegistro init(int parentWidth, int parentHeight) {
+        xPos = parentWidth/2 - width/2;
+        yPos = parentHeight/2 - height/2;
+        return this;
     }
 }

@@ -5,6 +5,7 @@
  */
 package com.ivernit.vista.inicio;
 
+import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.control.IvernitActionListeners;
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.utils.Strings;
@@ -65,5 +66,17 @@ public class PanelLogin extends JInternalFrame {
         this.add(pBotones, BorderLayout.SOUTH);
         this.setVisible(true);
     }
+    public Usuario getUsuario()
+    {
+        tfUsuario.getText();
+        return null;
+    }
     
+    public PanelLogin init(int parentWidth, int parentHeight) {
+        xPos = parentWidth / 2 - width / 2;
+        yPos = parentHeight / 2 - height / 2;
+        tfUsuario.setText("");
+        pfContraseña.setText("");
+        return this;
+    }
 }

@@ -5,6 +5,7 @@
  */
 package com.ivernit.vista.mainFrame;
 
+import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.ayuda.PanelAyuda;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.gestion.PanelGestion;
@@ -25,9 +26,15 @@ public class MainFrame extends JFrame {
     private final int xSize = 680;
     private final int ySize = 400;
     private MainMenuBar menu;
+    private PanelLogin pLogin;
+    private PanelGestion pGestion;
+    private PanelRegistro pRegistro;
 
     public MainFrame() {
         mainFrame = this;
+        pLogin = new PanelLogin(0,0);
+        pRegistro = new PanelRegistro(0,0);
+        pGestion = new PanelGestion(0,0);
         init();
     }
 
@@ -51,7 +58,7 @@ public class MainFrame extends JFrame {
         this.pack();
         contentPane = this.getContentPane();
         contentPane.setLayout(null);
-        contentPane.add(new PanelLogin(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add(pLogin.init(contentPane.getWidth(),contentPane.getHeight()));
         this.pack();
         this.setVisible(true);
     }
@@ -59,14 +66,15 @@ public class MainFrame extends JFrame {
     public void mostrarRegistro() {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
-        contentPane.add(new PanelRegistro(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add(pRegistro.init(contentPane.getWidth(), contentPane.getHeight()));
         contentPane.repaint();
     }
 
     public void mostrarGestion() {
+        Usuario usuario = pLogin.getUsuario();
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
-        contentPane.add(new PanelGestion(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add(pGestion.init(usuario,contentPane.getWidth(), contentPane.getHeight()));
         menu.sesionIniciada();
         this.revalidate();
     }
@@ -82,7 +90,7 @@ public class MainFrame extends JFrame {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
         menu.inicioSesion();
-        contentPane.add(new PanelLogin(contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add(pLogin.init(contentPane.getWidth(), contentPane.getHeight()));
         contentPane.repaint();
     }
 
