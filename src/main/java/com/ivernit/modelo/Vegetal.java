@@ -11,18 +11,10 @@ import java.util.ArrayList;
  *
  * @author Gautarra
  */
-public class Invernadero {
-    private String nombre;
+public class Vegetal {
     private int id;
-    private ArrayList<Cultivo> cultivo;
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    private String nombre;
+    private ArrayList<EstadoCrecimiento> estado;
 
     public int getId() {
         return id;
@@ -32,14 +24,21 @@ public class Invernadero {
         this.id = id;
     }
 
-    public ArrayList<Cultivo> getCultivo() {
-        return cultivo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCultivo(ArrayList<Cultivo> cultivo) {
-        this.cultivo = cultivo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
+
+    public ArrayList<EstadoCrecimiento> getEstado() {
+        return estado;
+    }
+
+    public void setEstado(ArrayList<EstadoCrecimiento> estado) {
+        this.estado = estado;
+    }
     
     
     
