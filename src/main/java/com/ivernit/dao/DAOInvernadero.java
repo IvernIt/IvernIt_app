@@ -56,7 +56,7 @@ public class DAOInvernadero {
             listaInvernadero = new ArrayList<>();
             
             while(rs.next()){
-                invernadero = new Invernadero(rs.getString("iNombre"), conexion);
+                invernadero = new Invernadero(conexion);
                 invernadero.setId(rs.getInt("iId"));
                 invernadero.setNombre(rs.getString("iNombre"));
                 listaInvernadero.add(invernadero);

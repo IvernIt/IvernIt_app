@@ -5,17 +5,32 @@
  */
 package com.ivernit.modelo;
 
-import java.util.ArrayList;
+import com.ivernit.dao.DAOEstadoCrecimiento;
+import java.sql.Connection;
 
 /**
  *
  * @author Gautarra
  */
 public class Vegetal {
-    private int id;
+    private int id, parametro;
     private String nombre;
-    private ArrayList<EstadoCrecimiento> estado;
+    private EstadoCrecimiento estado;
+    
+    DAOEstadoCrecimiento DaoEstadoCrecimiento;
+    
+    public Vegetal(int id, Connection conexion){
+        DaoEstadoCrecimiento = new DAOEstadoCrecimiento(conexion);
+    }
 
+    public int getParametro() {
+        return parametro;
+    }
+
+    public void setParametro(int parametro) {
+        this.parametro = parametro;
+    }
+    
     public int getId() {
         return id;
     }
@@ -32,11 +47,12 @@ public class Vegetal {
         this.nombre = nombre;
     }
 
-    public ArrayList<EstadoCrecimiento> getEstado() {
+    public EstadoCrecimiento getEstado(int idVegetal) {
+        estado = DaoEstadoCrecimiento.getEstadoCrecimientoPorIdVegetal(idVegetal);
         return estado;
     }
 
-    public void setEstado(ArrayList<EstadoCrecimiento> estado) {
+    public void setEstado(EstadoCrecimiento estado) {
         this.estado = estado;
     }
     
