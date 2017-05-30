@@ -5,7 +5,7 @@
  */
 package com.ivernit.dao;
 
-import com.ivernit.modelo.Invernadero;
+import com.ivernit.modelo.Cultivo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,55 +18,54 @@ import java.util.logging.Logger;
  *
  * @author Gautarra
  */
-public class DAOInvernadero {
-
+public class DAOCultivo {
+    
     Connection conexion;
+    ArrayList<Cultivo> listaCultivo;
     PreparedStatement preparedStatement;
     ResultSet rs;
-    
-    ArrayList<Invernadero> listaInvernadero;
-    
+
     /**
-     * 
+     *
      * @param conexion
-     * @param usuario 
      */
-    public DAOInvernadero(Connection conexion, String usuario) {
+    public DAOCultivo(Connection conexion){        
         this.conexion = conexion;        
     }
     
     /**
-     * 
-     * @param usuario
-     * @return 
+     *
+     * @param invernadero
+     * @return
      */
-    public ArrayList<Invernadero> getInvernaderoPorUsr(String usuario){
+    public ArrayList<Cultivo> getCultivoPorInvernadero(int invernadero){
         String statement;
-        Invernadero invernadero;
+        Cultivo cultivo;
         
         try {
-            statement = "SELECT * from invernadero " +
-                "inner join  usuario on invernadero.uId = usuario.uId " +
-                "where usuario.uNombre = (?) " +
-                "order by invernadero.iId;";
+            statement = "SELECT * from cultivo " +
+                "inner join  invernadero on cultivo.iId = invernadero.iId " +
+                "where invernadero.iId = (?) " +
+                "order by cultivo.iId;";
             preparedStatement = conexion.prepareStatement(statement);
-            preparedStatement.setString(1, usuario);
+            preparedStatement.setInt(1, invernadero);
             rs = preparedStatement.executeQuery();
             
-            listaInvernadero = new ArrayList<>();
+            System.out.println(statement);
+            
+            listaCultivo = new ArrayList<>();
             
             while(rs.next()){
-                invernadero = new Invernadero(conexion);
-                invernadero.setId(rs.getInt("iId"));
-                invernadero.setNombre(rs.getString("iNombre"));
-                listaInvernadero.add(invernadero);
+                cultivo = new Cultivo(rs.getInt("cId"), conexion);
+                cultivo.setId(rs.getInt("cId"));
+                listaCultivo.add(cultivo);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return listaInvernadero;       
+        return listaCultivo;       
     }
     
 }
