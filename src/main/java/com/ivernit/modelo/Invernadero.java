@@ -5,8 +5,6 @@
  */
 package com.ivernit.modelo;
 
-import com.ivernit.dao.DAOCultivo;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -17,13 +15,6 @@ public class Invernadero {
     private String nombre;
     private int id;
     private ArrayList<Cultivo> cultivo;
-    
-    DAOCultivo DaoCultivo;
-    
-    public Invernadero(Connection conexion){
-        
-        DaoCultivo = new DAOCultivo(conexion);
-    }
 
     public String getNombre() {
         return nombre;
@@ -41,8 +32,7 @@ public class Invernadero {
         this.id = id;
     }
 
-    public ArrayList<Cultivo> getCultivo(int idInvernadero) {
-        cultivo = DaoCultivo.getCultivoPorInvernadero(idInvernadero);
+    public ArrayList<Cultivo> getCultivo() {
         return cultivo;
     }
 

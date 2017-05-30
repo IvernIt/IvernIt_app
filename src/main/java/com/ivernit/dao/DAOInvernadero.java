@@ -21,52 +21,27 @@ import java.util.logging.Logger;
 public class DAOInvernadero {
 
     Connection conexion;
+    ArrayList<Invernadero> listaInvernadero;
     PreparedStatement preparedStatement;
     ResultSet rs;
     
-    ArrayList<Invernadero> listaInvernadero;
     
-    /**
-     * 
-     * @param conexion
-     * @param usuario 
-     */
-    public DAOInvernadero(Connection conexion, String usuario) {
-        this.conexion = conexion;        
+    public DAOInvernadero(Connection conexion) {
+        this.conexion = conexion;
     }
     
-    /**
-     * 
-     * @param usuario
-     * @return 
-     */
     public ArrayList<Invernadero> getInvernaderoPorUsr(String usuario){
-        String statement;
-        Invernadero invernadero;
         
         try {
-            statement = "SELECT * from invernadero " +
-                "inner join  usuario on invernadero.uId = usuario.uId " +
-                "where usuario.uNombre = (?) " +
-                "order by invernadero.iId;";
-            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement = conexion.prepareStatement("select * from invernaderos where usuario = (?)");
             preparedStatement.setString(1, usuario);
             rs = preparedStatement.executeQuery();
-            
-            listaInvernadero = new ArrayList<>();
-            
-            while(rs.next()){
-                invernadero = new Invernadero(conexion);
-                invernadero.setId(rs.getInt("iId"));
-                invernadero.setNombre(rs.getString("iNombre"));
-                listaInvernadero.add(invernadero);
-            }
-            
+            System.out.println(rs);
         } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return listaInvernadero;       
+        return null;       
     }
     
 }
