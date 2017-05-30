@@ -62,5 +62,7 @@ public class Strings {
     public static String ELIMINAR = "Eliminar";
     public static String EDITAR_ELEMENTO = "vas a editar, ";
     public static String EDITAR = "Editar";
+    public static String UNIDAD_RIEGO = "L / m2";
+    public static String UNIDAD_TEMPERATURA = "ºC";
     
 }

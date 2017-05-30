@@ -40,4 +40,12 @@ public class SingleColTableModel extends DefaultTableModel {
         return false;
     }
 
+    public String getElement(int row) {
+        String rowData = "";
+        try {
+            rowData = (String) getValueAt(row, 0);
+        } catch (Exception e) {
+        }
+        return rowData;
+    }
 }

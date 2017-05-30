@@ -77,6 +77,7 @@ public class PanelLogin extends JInternalFrame {
         yPos = parentHeight / 2 - height / 2;
         tfUsuario.setText("");
         pfContraseña.setText("");
+        setLocation(xPos, yPos);
         return this;
     }
 }

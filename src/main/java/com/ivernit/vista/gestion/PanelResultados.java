@@ -5,12 +5,20 @@
  */
 package com.ivernit.vista.gestion;
 
+import com.ivernit.modelo.Cultivo;
+import com.ivernit.modelo.Invernadero;
+import com.ivernit.modelo.Vegetal;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.SingleColTableModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,40 +36,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelResultados extends JPanel implements ListSelectionListener {
 
+    private enum Columnas {
+        estado, riego, luz, temperatura, tierra, total
+    };
     private JTable tVegetales;
     private JTextField tfResultado;
     private JTable tParametros;
+    private Invernadero invernaderoActivo;
+    private final String SEPARADOR_VEGETAL = " | ";
     String[] columnNames = {
         Strings.ESTADO,
         Strings.RIEGO,
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
-    Object[][] data = {
-        {
-            "Germinacion",
-            new Integer(3000),
-            new Integer(15),
-            "18ºC", "fertil"
-        },
-        {
-            "Ahijamiento",
-            new Integer(3000),
-            new Integer(15),
-            "18ºC", "fertil"
-        },
-        {
-            "Gran Crecimiento",
-            new Integer(3000),
-            new Integer(15),
-            "18ºC", "fertil"
-        },
-        {
-            "Maduracion",
-            new Integer(3000),
-            new Integer(15),
-            "18ºC", "fertil"
-        }};
 
     public PanelResultados() {
         this.setLayout(new BorderLayout());
@@ -115,7 +103,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
     private JPanel crearPanelParametros() {
         JPanel pParametros = new JPanel(new BorderLayout());
         JScrollPane spParametros = new JScrollPane();
-        DefaultTableModel tmParametros = new DefaultTableModel(data, columnNames);
+        DefaultTableModel tmParametros = new DefaultTableModel(null, columnNames);
         tParametros = new JTable(tmParametros);
         try {
             tParametros.setRowSelectionInterval(0, 0);
@@ -128,6 +116,60 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+
+    }
+
+    public void actualizarDatos(Invernadero inv) {
+        this.invernaderoActivo = inv;
+        this.actualizarVegetales();
+        try {
+            this.actializarParametros();
+        } catch (ParseException ex) {
+            Logger.getLogger(PanelResultados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void actualizarVegetales() {
+        SingleColTableModel modelo = (SingleColTableModel) tVegetales.getModel();
+        modelo.setRowCount(0);
+        for (Cultivo cult : this.invernaderoActivo.getCultivo()) {
+            modelo.addElement(cult.getVegetales().get(0) + SEPARADOR_VEGETAL + cult.getFechaDeInicio());
+        }
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
+    }
+
+    private void actializarParametros() throws ParseException {
+        SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
+        DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
+        String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("[" + SEPARADOR_VEGETAL + "]");
+        String nombreVegetal = vegetalActivo[0];
+        Date fechaInicio = DateFormat.getDateInstance().parse(vegetalActivo[1]);
+        Object[][] dataVector = null;
+        modeloParametos.setRowCount(0);
+        for (Cultivo cult : invernaderoActivo.getCultivo()) {
+            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
+                if (cult.getFechaDeInicio() == fechaInicio) {
+                    dataVector = new Object[cult.getVegetales().size()][Columnas.total.ordinal()];
+                    for (int i = 0; i < cult.getVegetales().size(); i++) {
+                        Vegetal veg = cult.getVegetales().get(i);
+                        dataVector[i][Columnas.estado.ordinal()] = veg.getEstado().getNombre();
+                        dataVector[i][Columnas.riego.ordinal()] = veg.getParametro().getAgua() + Strings.UNIDAD_RIEGO;
+                        dataVector[i][Columnas.luz.ordinal()] = veg.getParametro().getHorasLuz();
+                        dataVector[i][Columnas.temperatura.ordinal()] = veg.getParametro().getTemperatura() + Strings.UNIDAD_TEMPERATURA;
+                        dataVector[i][Columnas.tierra.ordinal()] = veg.getParametro().getTipoTierra();
+                    }
+                }
+            }
+        }
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
+
+        modeloParametos.setDataVector(dataVector, columnNames);
 
     }
 

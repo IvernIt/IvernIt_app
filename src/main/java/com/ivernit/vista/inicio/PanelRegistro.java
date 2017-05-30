@@ -78,6 +78,7 @@ public class PanelRegistro extends JInternalFrame{
     public PanelRegistro init(int parentWidth, int parentHeight) {
         xPos = parentWidth/2 - width/2;
         yPos = parentHeight/2 - height/2;
+        this.setLocation(xPos, yPos);
         return this;
     }
 }

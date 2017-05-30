@@ -38,6 +38,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     private PanelVer pVer;
     private PanelResultados pResultado;
     private PanelControl pControl;
+    private Usuario usuarioActivo;
 
     public PanelGestion(int parentWidth, int parentHeight) {
         width = parentWidth;
@@ -103,25 +104,46 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         }
     }
 
-    private void rellenarInvernaderos(Usuario usuario) {
+    private void rellenarInvernaderos() {
         SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
-        ArrayList<Invernadero> invernaderos = usuario.getInvernaderos();
-        for (Invernadero invernadero : invernaderos) {
-            modelo.addElement(invernadero.getNombre());
-        }
-         try {
-            tInvernderos.setRowSelectionInterval(0, 0);
-        } catch (Exception e) {
+        modelo.setRowCount(0);
+        if (usuarioActivo != null) {
+            ArrayList<Invernadero> invernaderos = usuarioActivo.getInvernaderos();
+            for (Invernadero invernadero : invernaderos) {
+                modelo.addElement(invernadero.getNombre());
+            }
+            try {
+                tInvernderos.setRowSelectionInterval(0, 0);
+            } catch (Exception e) {
+            }
         }
     }
 
     public PanelGestion init(Usuario usuario, int parentWidth, int parentHeight) {
-        width = parentWidth;
-        height = parentHeight;
-        rellenarInvernaderos(usuario);
-        tpGestion.setSelectedIndex(0);
-        
+        this.width = parentWidth;
+        this.height = parentHeight;
+        this.usuarioActivo = usuario;
+        this.rellenarInvernaderos();
+        this.tpGestion.setSelectedIndex(0);
+        this.actualizarDatos();
         return this;
+    }
+
+    private void actualizarDatos() {
+        SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
+        String strInvernadero = modelo.getElement(tInvernderos.getSelectedRow());
+        if (usuarioActivo != null) {
+            for (Invernadero inv : usuarioActivo.getInvernaderos()) {
+                if(inv.getNombre() == strInvernadero)
+                {
+                    pVer.actualizarDatos(inv);
+                    pModificar.actualizarDatos(inv);
+                    pResultado.actualizarDatos(inv);
+                    pControl.actualizarDatos(inv);
+                    break;
+                }
+            }
+        }
     }
 
 }

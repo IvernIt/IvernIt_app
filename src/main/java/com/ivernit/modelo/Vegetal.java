@@ -5,8 +5,6 @@
  */
 package com.ivernit.modelo;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Gautarra
@@ -14,7 +12,16 @@ import java.util.ArrayList;
 public class Vegetal {
     private int id;
     private String nombre;
-    private ArrayList<EstadoCrecimiento> estado;
+    private EstadoCrecimiento estado;
+    private Parametros parametro;
+
+    public Parametros getParametro() {
+        return parametro;
+    }
+
+    public void setParametro(Parametros parametro) {
+        this.parametro = parametro;
+    }
 
     public int getId() {
         return id;
@@ -32,11 +39,11 @@ public class Vegetal {
         this.nombre = nombre;
     }
 
-    public ArrayList<EstadoCrecimiento> getEstado() {
+    public EstadoCrecimiento getEstado() {
         return estado;
     }
 
-    public void setEstado(ArrayList<EstadoCrecimiento> estado) {
+    public void setEstado(EstadoCrecimiento estado) {
         this.estado = estado;
     }
     
