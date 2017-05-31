@@ -62,9 +62,6 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         JScrollPane spVegetales = new JScrollPane();
         SingleColTableModel tmVegetales = new SingleColTableModel();
         tmVegetales.setHeader(Strings.VEGETALES);
-        tmVegetales.addElement("Tomates 02/012017");
-        tmVegetales.addElement("Lechugas 02/012017");
-        tmVegetales.addElement("Cebollas 02/012017");
         tVegetales = new JTable(tmVegetales);
         tVegetales.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         try {
@@ -142,37 +139,37 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
     }
 
     private void actializarParametros() throws ParseException {
-        SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
-        DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
-        String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("(" + SEPARADOR_VEGETAL + ")");
-        String nombreVegetal = vegetalActivo[0];
-        Date fechaInicio = Date.valueOf(vegetalActivo[2]);
-        Object[][] dataVector = null;
-        modeloParametos.setRowCount(0);
-        for (Cultivo cult : invernaderoActivo.getCultivo()) {
-            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
-                if (cult.getFechaDeInicio().equals(fechaInicio)) {
-                    dataVector = new Object[cult.getVegetales().size()][Columnas.total.ordinal()];
-                    for (int i = 0; i < cult.getVegetales().size(); i++) {
-                        Vegetal veg = cult.getVegetales().get(i);
-                        dataVector[i][Columnas.estado.ordinal()] = veg.getEstado().getNombre();
-                        dataVector[i][Columnas.riego.ordinal()] = veg.getParametro().getAgua() + Strings.UNIDAD_RIEGO;
-                        dataVector[i][Columnas.luz.ordinal()] = veg.getParametro().getHorasLuz();
-                        dataVector[i][Columnas.temperatura.ordinal()] = veg.getParametro().getTemperatura() + Strings.UNIDAD_TEMPERATURA;
-                        dataVector[i][Columnas.tierra.ordinal()] = veg.getParametro().getTipoTierra();
+        if (invernaderoActivo.getCultivo().size() > 0) {
+            SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
+            DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
+            String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("(" + SEPARADOR_VEGETAL + ")");
+            String nombreVegetal = vegetalActivo[0];
+            Date fechaInicio = Date.valueOf(vegetalActivo[2]);
+            Object[][] dataVector = null;
+            modeloParametos.setRowCount(0);
+            for (Cultivo cult : invernaderoActivo.getCultivo()) {
+                if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
+                    if (cult.getFechaDeInicio().equals(fechaInicio)) {
+                        dataVector = new Object[cult.getVegetales().size()][Columnas.total.ordinal()];
+                        for (int i = 0; i < cult.getVegetales().size(); i++) {
+                            Vegetal veg = cult.getVegetales().get(i);
+                            dataVector[i][Columnas.estado.ordinal()] = veg.getEstado().getNombre();
+                            dataVector[i][Columnas.riego.ordinal()] = veg.getParametro().getAgua() + Strings.UNIDAD_RIEGO;
+                            dataVector[i][Columnas.luz.ordinal()] = veg.getParametro().getHorasLuz();
+                            dataVector[i][Columnas.temperatura.ordinal()] = veg.getParametro().getTemperatura() + Strings.UNIDAD_TEMPERATURA;
+                            dataVector[i][Columnas.tierra.ordinal()] = veg.getParametro().getTipoTierra();
+                        }
+                        tfResultado.setText(cult.getResultado());
+                        break;
                     }
-                    tfResultado.setText(cult.getResultado());
-                    break;
                 }
             }
-        }
-        modeloParametos.setDataVector(dataVector, columnNames);
-        try {
-            tVegetales.setRowSelectionInterval(0, 0);
-        } catch (Exception e) {
-        }
+            modeloParametos.setDataVector(dataVector, columnNames);
+            try {
+                tVegetales.setRowSelectionInterval(0, 0);
+            } catch (Exception e) {
+            }
 
-
+        }
     }
-
 }

@@ -64,9 +64,6 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         JScrollPane spVegetales = new JScrollPane();
         SingleColTableModel tmVegetales = new SingleColTableModel();
         tmVegetales.setHeader(Strings.VEGETALES);
-        tmVegetales.addElement("Tomates 02/012017");
-        tmVegetales.addElement("Lechugas 02/012017");
-        tmVegetales.addElement("Cebollas 02/012017");
         tVegetales = new JTable(tmVegetales);
         tVegetales.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         try {
@@ -179,22 +176,23 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     }
 
     private void actualizarParametros() throws ParseException, Exception {
-        SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
-        DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
-        String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("(" + SEPARADOR_VEGETAL + ")");
-        String nombreVegetal = vegetalActivo[0];
-        Date fechaInicio = Date.valueOf(vegetalActivo[2]);
-        Object[][] dataVector = new Object[invernaderoActivo.getParametros().size()][Columnas.total.ordinal()];
-        modeloParametos.setRowCount(0);
-        for (int i = 0; i< invernaderoActivo.getParametros().size();i++) {
-            Parametros param  = invernaderoActivo.getParametros().get(i);
-            if (param != null) {
-                dataVector[i][Columnas.riego.ordinal()] = param.getAgua() + Strings.UNIDAD_RIEGO;
-                dataVector[i][Columnas.luz.ordinal()] = param.getHorasLuz();
-                dataVector[i][Columnas.temperatura.ordinal()] = param.getTemperatura() + Strings.UNIDAD_TEMPERATURA;
-                dataVector[i][Columnas.tierra.ordinal()] = param.getTipoTierra();
+        if (invernaderoActivo.getCultivo().size() > 0) {
+            SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
+            DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
+            String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("(" + SEPARADOR_VEGETAL + ")");
+            String nombreVegetal = vegetalActivo[0];
+            Date fechaInicio = Date.valueOf(vegetalActivo[2]);
+            Object[][] dataVector = new Object[invernaderoActivo.getParametros().size()][Columnas.total.ordinal()];
+            modeloParametos.setRowCount(0);
+            for (int i = 0; i < invernaderoActivo.getParametros().size(); i++) {
+                Parametros param = invernaderoActivo.getParametros().get(i);
+                if (param != null) {
+                    dataVector[i][Columnas.riego.ordinal()] = param.getAgua() + Strings.UNIDAD_RIEGO;
+                    dataVector[i][Columnas.luz.ordinal()] = param.getHorasLuz();
+                    dataVector[i][Columnas.temperatura.ordinal()] = param.getTemperatura() + Strings.UNIDAD_TEMPERATURA;
+                    dataVector[i][Columnas.tierra.ordinal()] = param.getTipoTierra();
+                }
             }
-        }
 //        for (Cultivo cult : invernaderoActivo.getCultivo()) {
 //            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
 //                if (cult.getFechaDeInicio().equals(fechaInicio)) {
@@ -202,9 +200,10 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
 //                }
 //            }
 //        }
-        try {
-            tVegetales.setRowSelectionInterval(0, 0);
-        } catch (Exception e) {
+            try {
+                tVegetales.setRowSelectionInterval(0, 0);
+            } catch (Exception e) {
+            }
         }
     }
 
