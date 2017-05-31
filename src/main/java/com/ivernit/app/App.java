@@ -5,6 +5,7 @@
  */
 package com.ivernit.app;
 
+import com.ivernit.vista.mainFrame.MainFrame;
 import com.ivernit.dao.DAOConexion;
 import com.ivernit.dao.DAOCultivo;
 import com.ivernit.dao.DAOInvernadero;

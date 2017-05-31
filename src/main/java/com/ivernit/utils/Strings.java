@@ -33,7 +33,7 @@ public class Strings {
     public static String CERRAR_SESION = "Cerrar Sesion";
     public static String VEGETAL = "Vegetal";
     public static String ESTADO = "Estado";
-    public static String LITROS_METRO = "L / m2";
+    public static String RIEGO = "Riego";
     public static String HORAS_LUZ  = "Horas de luz";
     public static String TEMPERATURA = "Temperatura";
     public static String TIPO_TIERRA = "Tipo tierras";
@@ -53,5 +53,16 @@ public class Strings {
     public static String PERFIL = "Perfil";
     public static String PEDIR_ASISTENCIA = "Pedir Asistencia";
     public static String ACERCA_DE = "Acerca De";
+    public static String CONCEPTO = "Concepto";
+    public static String MENSAJE = "Mensaje";
+    public static String ENVIAR = "Enviar";
+    public static String NUEVO_ELEMENTO = "Nuevo elemento";
+    public static String NUEVO = "Nuevo";
+    public static String SEGURO_ELIMINAR = "¿Está seguro que quiere eliminar este elemento? :";
+    public static String ELIMINAR = "Eliminar";
+    public static String EDITAR_ELEMENTO = "vas a editar, ";
+    public static String EDITAR = "Editar";
+    public static String UNIDAD_RIEGO = "L / m2";
+    public static String UNIDAD_TEMPERATURA = "ºC";
     
 }

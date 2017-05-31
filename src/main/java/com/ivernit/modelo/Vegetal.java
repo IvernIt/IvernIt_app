@@ -5,9 +5,6 @@
  */
 package com.ivernit.modelo;
 
-import com.ivernit.dao.DAOEstadoCrecimiento;
-import java.sql.Connection;
-
 /**
  *
  * @author Gautarra

@@ -5,6 +5,9 @@
  */
 package com.ivernit.vista.gestion;
 
+import com.ivernit.modelo.Cultivo;
+import com.ivernit.modelo.Invernadero;
+import com.ivernit.modelo.Vegetal;
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.vista.auxiliarControls.DisabledJTextField;
 import com.ivernit.vista.auxiliarControls.EditToolbar;
@@ -13,6 +16,11 @@ import com.ivernit.vista.auxiliarControls.SingleColTableModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,18 +38,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelModificar extends JPanel implements ListSelectionListener {
 
-    String[] columnNames = {
-        Strings.LITROS_METRO,
+    private String SEPARADOR_VEGETAL = " | ";
+
+    private enum Columnas {
+        riego, luz, temperatura, tierra, total
+    };
+    private final String[] columnasParametros = {
+        Strings.RIEGO,
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
-    Object[][] data = {{
-        new Integer(3000),
-        new Integer(15),
-        "18ºC", "fertil"}};
+
     private JTable tParametros;
     private JTable tVegetales;
     private JTable tEstados;
+    private Invernadero invernaderoActivo;
 
     public PanelModificar() {
         this.setLayout(new BorderLayout());
@@ -59,11 +70,15 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         tmVegetales.addElement("Cebollas 02/012017");
         tVegetales = new JTable(tmVegetales);
         tVegetales.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         tVegetales.getSelectionModel().addListSelectionListener(this);
         spVegetales.setViewportView(tVegetales);
         spVegetales.setPreferredSize(new Dimension(135, 100000));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
-        pVegetales.add(new EditToolbar(tmVegetales), BorderLayout.PAGE_START);
+        pVegetales.add(new EditToolbar(tVegetales), BorderLayout.PAGE_START);
         return pVegetales;
 
     }
@@ -93,6 +108,10 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         tmEstados.addElement("Maduracion");
         tEstados = new JTable(tmEstados);
         tEstados.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        try {
+            tEstados.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
         tEstados.getSelectionModel().addListSelectionListener(this);
         spEstados.setViewportView(tEstados);
         spEstados.setPreferredSize(new Dimension(135, 0));
@@ -103,7 +122,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private JPanel crearPanelCultivoIdeal() {
         JPanel pIdeal = new JPanel(new GridLayout(4, 2));
         pIdeal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        JLabel lAgua = new JLabel(Strings.LITROS_METRO);
+        JLabel lAgua = new JLabel(Strings.RIEGO);
         JLabel lLuz = new JLabel(Strings.HORAS_LUZ);
         JLabel lTemperatura = new JLabel(Strings.TEMPERATURA);
         JLabel lTipoTierra = new JLabel(Strings.TIPO_TIERRA);
@@ -126,7 +145,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private JPanel crearPanelParametros() {
         JPanel pParametros = new JPanel(new BorderLayout());
         JScrollPane spParametros = new JScrollPane();
-        DefaultTableModel tmParametros = new DefaultTableModel(data, columnNames);
+        DefaultTableModel tmParametros = new DefaultTableModel(null, columnasParametros);
         tParametros = new JTable(tmParametros);
         tParametros.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tParametros.getSelectionModel().addListSelectionListener(this);
@@ -139,17 +158,59 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() instanceof ListSelectionModel) {
             ListSelectionModel source = (ListSelectionModel) e.getSource();
-            if (source == tEstados.getSelectionModel()) 
-            {
+            if (source == tEstados.getSelectionModel()) {
 
-            } else if (source == tVegetales.getSelectionModel()) 
-            {
+            } else if (source == tVegetales.getSelectionModel()) {
+
+            } else if (source == tParametros.getSelectionModel()) {
 
             }
-            else if(source == tParametros.getSelectionModel())
-            {
-                
+        }
+    }
+
+    public void actualizarDatos(Invernadero inv) {
+        invernaderoActivo = inv;
+        actualizarVegetales();
+        try {
+            actualizarParametros();
+        } catch (Exception ex) {
+            Logger.getLogger(PanelModificar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void actualizarParametros() throws ParseException, Exception {
+        SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
+        DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
+        String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("[" + SEPARADOR_VEGETAL + "]");
+        String nombreVegetal = vegetalActivo[0];
+        Date fechaInicio = DateFormat.getDateInstance().parse(vegetalActivo[1]);
+
+        modeloParametos.setRowCount(0);
+        for (Cultivo cult : invernaderoActivo.getCultivo()) {
+            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
+                if (cult.getFechaDeInicio() == fechaInicio) {
+                    for (Vegetal veg : cult.getVegetales()) {
+                        throw new Exception("DILE A MENENDEZ LO DE LOS PARAMENTROS AGAINS");
+                    }
+                }
             }
+        }
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
+        }
+    }
+
+    private void actualizarVegetales() {
+        SingleColTableModel modelo = (SingleColTableModel) tVegetales.getModel();
+        modelo.setRowCount(0);
+        for (Cultivo cult : this.invernaderoActivo.getCultivo()) {
+            modelo.addElement(cult.getVegetales().get(0) + SEPARADOR_VEGETAL + cult.getFechaDeInicio());
+        }
+        try {
+            tVegetales.setRowSelectionInterval(0, 0);
+        } catch (Exception e) {
         }
     }
 

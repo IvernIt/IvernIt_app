@@ -5,14 +5,16 @@
  */
 package com.ivernit.vista.gestion;
 
+import com.ivernit.modelo.Invernadero;
+import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.auxiliarControls.EditToolbar;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.SingleColTableModel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -21,7 +23,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,7 +33,12 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     private int width;
     private int height;
     private JTable tInvernderos;
-    private JTabbedPane pGestion;
+    private JTabbedPane tpGestion;
+    private PanelModificar pModificar;
+    private PanelVer pVer;
+    private PanelResultados pResultado;
+    private PanelControl pControl;
+    private Usuario usuarioActivo;
 
     public PanelGestion(int parentWidth, int parentHeight) {
         width = parentWidth;
@@ -55,27 +61,28 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         JScrollPane spLista = new JScrollPane();
         SingleColTableModel tmInvernderos = new SingleColTableModel();
         tmInvernderos.setHeader(Strings.INVERNADEROS);
-        tmInvernderos.addElement("invernadero1");
-        tmInvernderos.addElement("invernadero2");
-        tmInvernderos.addElement("invernadero3");
         tInvernderos = new JTable(tmInvernderos);
         tInvernderos.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tInvernderos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tInvernderos.getSelectionModel().addListSelectionListener(this);
         spLista.setViewportView(tInvernderos);
-        spLista.setPreferredSize(new Dimension(width / 5, height));
+        spLista.setPreferredSize(new Dimension(135, 0));
         pInvernaderos.add(spLista, BorderLayout.CENTER);
-        pInvernaderos.add(new EditToolbar(tmInvernderos), BorderLayout.PAGE_START);
+        pInvernaderos.add(new EditToolbar(tInvernderos), BorderLayout.PAGE_START);
         return pInvernaderos;
     }
 
     private Component panelGestion() {
-        pGestion = new JTabbedPane(JTabbedPane.TOP);
-        pGestion.add(Strings.VER, new PanelVer());
-        pGestion.add(Strings.MODIFICAR, new PanelModificar());
-        pGestion.add(Strings.RESULTADOS, new PanelResultados());
-        pGestion.add(Strings.CONTROL_MANUAL, new PanelControl());
-        return pGestion;
+        tpGestion = new JTabbedPane(JTabbedPane.TOP);
+        pVer = new PanelVer();
+        pModificar = new PanelModificar();
+        pResultado = new PanelResultados();
+        pControl = new PanelControl();
+        tpGestion.add(Strings.VER, pVer);
+        tpGestion.add(Strings.MODIFICAR, pModificar);
+        tpGestion.add(Strings.RESULTADOS, pResultado);
+        tpGestion.add(Strings.CONTROL_MANUAL, pControl);
+        return tpGestion;
     }
 
     @Override
@@ -86,7 +93,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     }
 
     private void actualizarPanel(int firstIndex) {
-        switch (pGestion.getSelectedIndex()) {
+        switch (tpGestion.getSelectedIndex()) {
             case 0:
             case 1:
             case 2:
@@ -94,6 +101,48 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
             case 4:
             default:
                 break;
+        }
+    }
+
+    private void rellenarInvernaderos() {
+        SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
+        modelo.setRowCount(0);
+        if (usuarioActivo != null) {
+            ArrayList<Invernadero> invernaderos = usuarioActivo.getInvernaderos();
+            for (Invernadero invernadero : invernaderos) {
+                modelo.addElement(invernadero.getNombre());
+            }
+            try {
+                tInvernderos.setRowSelectionInterval(0, 0);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public PanelGestion init(Usuario usuario, int parentWidth, int parentHeight) {
+        this.width = parentWidth;
+        this.height = parentHeight;
+        this.usuarioActivo = usuario;
+        this.rellenarInvernaderos();
+        this.tpGestion.setSelectedIndex(0);
+        this.actualizarDatos();
+        return this;
+    }
+
+    private void actualizarDatos() {
+        SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
+        String strInvernadero = modelo.getElement(tInvernderos.getSelectedRow());
+        if (usuarioActivo != null) {
+            for (Invernadero inv : usuarioActivo.getInvernaderos()) {
+                if(inv.getNombre() == strInvernadero)
+                {
+                    pVer.actualizarDatos(inv);
+                    pModificar.actualizarDatos(inv);
+                    pResultado.actualizarDatos(inv);
+                    pControl.actualizarDatos(inv);
+                    break;
+                }
+            }
         }
     }
 
