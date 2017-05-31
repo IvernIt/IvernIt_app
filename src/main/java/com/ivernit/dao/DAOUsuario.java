@@ -20,8 +20,8 @@ public class DAOUsuario {
     PreparedStatement preparedStatement;
     ResultSet rs;
 
-    public DAOUsuario(Connection conexion){        
-        this.conexion = conexion;        
+    public DAOUsuario(){        
+        this.conexion = Conexion.conectar();      
     }
     
 }

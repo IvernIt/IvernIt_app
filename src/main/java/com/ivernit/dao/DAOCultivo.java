@@ -29,8 +29,8 @@ public class DAOCultivo {
      *
      * @param conexion
      */
-    public DAOCultivo(Connection conexion){        
-        this.conexion = conexion;        
+    public DAOCultivo(){        
+        this.conexion = Conexion.conectar();        
     }
     
     /**
@@ -56,8 +56,9 @@ public class DAOCultivo {
             listaCultivo = new ArrayList<>();
             
             while(rs.next()){
-                cultivo = new Cultivo(rs.getInt("cId"), conexion);
+                cultivo = new Cultivo(rs.getInt("cId"));
                 cultivo.setId(rs.getInt("cId"));
+                cultivo.setFechaDeInicio(rs.getDate("cFechaInicio"));
                 listaCultivo.add(cultivo);
             }
             

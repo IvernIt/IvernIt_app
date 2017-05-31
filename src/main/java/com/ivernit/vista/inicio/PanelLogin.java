@@ -68,8 +68,9 @@ public class PanelLogin extends JInternalFrame {
     }
     public Usuario getUsuario()
     {
-        tfUsuario.getText();
-        return null;
+        Usuario usuario;
+        usuario = new Usuario(tfUsuario.getText());
+        return usuario;
     }
     
     public PanelLogin init(int parentWidth, int parentHeight) {

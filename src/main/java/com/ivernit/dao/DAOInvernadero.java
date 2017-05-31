@@ -25,14 +25,12 @@ public class DAOInvernadero {
     ResultSet rs;
     
     ArrayList<Invernadero> listaInvernadero;
-    
+
     /**
-     * 
-     * @param conexion
-     * @param usuario 
+     *
      */
-    public DAOInvernadero(Connection conexion, String usuario) {
-        this.conexion = conexion;        
+    public DAOInvernadero() {
+        this.conexion = Conexion.conectar();       
     }
     
     /**
@@ -56,8 +54,7 @@ public class DAOInvernadero {
             listaInvernadero = new ArrayList<>();
             
             while(rs.next()){
-                invernadero = new Invernadero(conexion);
-                invernadero.setId(rs.getInt("iId"));
+                invernadero = new Invernadero(rs.getInt("iId"));
                 invernadero.setNombre(rs.getString("iNombre"));
                 listaInvernadero.add(invernadero);
             }

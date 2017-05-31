@@ -27,8 +27,8 @@ public class DAOEstadoCrecimiento {
      * 
      * @param conexion 
      */
-    public DAOEstadoCrecimiento(Connection conexion){
-        this.conexion = conexion;      
+    public DAOEstadoCrecimiento(){
+        this.conexion = Conexion.conectar();       
     }
     
     /**

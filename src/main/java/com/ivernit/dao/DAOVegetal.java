@@ -27,10 +27,9 @@ public class DAOVegetal {
     
     /**
      * 
-     * @param conexion 
      */
-    public DAOVegetal(Connection conexion){
-        this.conexion = conexion;
+    public DAOVegetal(){
+        this.conexion = Conexion.conectar();      
     }
     
     /**
@@ -55,8 +54,7 @@ public class DAOVegetal {
             listaVegetal = new ArrayList<>();
             
             while(rs.next()){
-                vegetal = new Vegetal(rs.getInt("vId"), idCultivo, conexion);
-                vegetal.setId(rs.getInt("vId"));
+                vegetal = new Vegetal(rs.getInt("vId"), idCultivo);
                 vegetal.setNombre(rs.getString("vNombre"));
                // vegetal.setParametro(rs.getInt("pId")); REVISAR ESTO
                 listaVegetal.add(vegetal);

@@ -21,11 +21,10 @@ public class Cultivo {
     private Date fechaDeInicio;
     private ArrayList<Vegetal> vegetales;
     DAOVegetal DaoVegetal;
-    
-    public Cultivo(int id, Connection conexion){               
-        DaoVegetal = new DAOVegetal(conexion); 
-    }
 
+    public Cultivo(int id) {
+        DaoVegetal = new DAOVegetal();
+    }
 
     public int getId() {
         return id;
@@ -42,7 +41,11 @@ public class Cultivo {
     public void setFechaDeInicio(Date fechaDeInicio) {
         this.fechaDeInicio = fechaDeInicio;
     }
+
     public ArrayList<Vegetal> getVegetales() {
+        if (vegetales == null && DaoVegetal != null) {
+            vegetales = DaoVegetal.getVegetalPorCultivo(id);
+        }
         return vegetales;
     }
 
@@ -52,7 +55,7 @@ public class Cultivo {
 
     public Vegetal getUltimoVegetal() {
         Vegetal ultimo = null;
-        for (Vegetal veg : vegetales) {
+        for (Vegetal veg : getVegetales()) {
             if (ultimo != null) {
                 if (ultimo.getEstado().getId() < veg.getEstado().getId()) {
                     ultimo = veg;

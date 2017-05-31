@@ -27,10 +27,10 @@ public class Vegetal {
 
     }
 
-    public Vegetal(int id, int idCultivo, Connection conexion) {
+    public Vegetal(int id, int idCultivo) {
         this.id = id;
-        this.DaoEstadoCrecimiento = new DAOEstadoCrecimiento(conexion);
-        this.DaoParametros = new DAOParametros(conexion);
+        this.DaoEstadoCrecimiento = new DAOEstadoCrecimiento();
+        this.DaoParametros = new DAOParametros();
     }
 
     public Parametros getParametro() {

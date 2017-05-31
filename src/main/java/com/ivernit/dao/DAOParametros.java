@@ -29,8 +29,8 @@ public class DAOParametros {
      *
      * @param conexion
      */
-    public DAOParametros(Connection conexion) {
-        this.conexion = conexion;
+    public DAOParametros() {
+        this.conexion = Conexion.conectar();      
     }
 
     /**
@@ -42,34 +42,37 @@ public class DAOParametros {
         String statement;
         Parametros parametros = null;
 
-        try {
-            statement = "SELECT * from parametro "
-                    + "inner join  cultivo on parametro.pId = cultivo.pId "
-                    + "where cultivo.cId = (?) "
-                    + "order by parametro.pId;";
+//        try {
+//            statement = "SELECT * from parametro "
+//                    + "inner join  cultivo on parametro.pId = cultivo.pId "
+//                    + "where cultivo.cId = (?) "
+//                    + "order by parametro.pId;";
+//
+//            preparedStatement = conexion.prepareStatement(statement);
+//            preparedStatement.setInt(1, idCultivo);
+//            rs = preparedStatement.executeQuery();
+//
+//            listaParametros = new ArrayList<>();
 
-            preparedStatement = conexion.prepareStatement(statement);
-            preparedStatement.setInt(1, idCultivo);
-            rs = preparedStatement.executeQuery();
-
-            listaParametros = new ArrayList<>();
-
-            while (rs.next()) {
+          // while (rs.next()) {
                 parametros = new Parametros();
-                parametros.setAgua(rs.getDouble("pAgua"));
-                parametros.setHorasLuz(rs.getDouble("pHorasLuz"));
-                parametros.setId(rs.getInt("pId"));
-                parametros.setTemperatura(rs.getDouble("pTemperatura"));
-                parametros.setTipoTierra(rs.getString("pTipoTierra"));
-                listaParametros.add(parametros);
+                parametros.setAgua(25);
+                parametros.setHorasLuz(5);
+                parametros.setId(1);
+                parametros.setTemperatura(24);
+                parametros.setTipoTierra("morosa");
+               
+           // }
 
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         return parametros;
+    }
+
+    public ArrayList<Parametros> getParametrosPorInverndero(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
