@@ -5,29 +5,45 @@
  */
 package com.ivernit.modelo;
 
+import com.ivernit.dao.DAOEstadoCrecimiento;
+import com.ivernit.dao.DAOParametros;
+import java.sql.Connection;
+
 /**
  *
  * @author Gautarra
  */
 public class Vegetal {
-    private int id, parametro;
+
+    private int id;
+    private int idCultivo;
     private String nombre;
     private EstadoCrecimiento estado;
-    
-    DAOEstadoCrecimiento DaoEstadoCrecimiento;
-    
-    public Vegetal(int id, Connection conexion){
-        DaoEstadoCrecimiento = new DAOEstadoCrecimiento(conexion);
+    private DAOEstadoCrecimiento DaoEstadoCrecimiento;
+    private Parametros parametro;
+    private DAOParametros DaoParametros;
+
+    public Vegetal() {
+
     }
 
-    public int getParametro() {
+    public Vegetal(int id, int idCultivo, Connection conexion) {
+        this.id = id;
+        this.DaoEstadoCrecimiento = new DAOEstadoCrecimiento(conexion);
+        this.DaoParametros = new DAOParametros(conexion);
+    }
+
+    public Parametros getParametro() {
+        if (parametro == null && DaoParametros != null) {
+            parametro = DaoParametros.getParametrosPorCultivo(idCultivo, id);
+        }
         return parametro;
     }
 
-    public void setParametro(int parametro) {
+    public void setParametro(Parametros parametro) {
         this.parametro = parametro;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -44,15 +60,15 @@ public class Vegetal {
         this.nombre = nombre;
     }
 
-    public EstadoCrecimiento getEstado(int idVegetal) {
-        estado = DaoEstadoCrecimiento.getEstadoCrecimientoPorIdVegetal(idVegetal);
+    public EstadoCrecimiento getEstado() {
+        if (estado == null && DaoEstadoCrecimiento != null) {
+            estado = DaoEstadoCrecimiento.getEstadoCrecimientoPorIdVegetal(id);
+        }
         return estado;
     }
 
     public void setEstado(EstadoCrecimiento estado) {
         this.estado = estado;
     }
-    
-    
-    
+
 }

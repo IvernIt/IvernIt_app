@@ -55,10 +55,10 @@ public class DAOVegetal {
             listaVegetal = new ArrayList<>();
             
             while(rs.next()){
-                vegetal = new Vegetal(rs.getInt("vId"), conexion);
+                vegetal = new Vegetal(rs.getInt("vId"), idCultivo, conexion);
                 vegetal.setId(rs.getInt("vId"));
                 vegetal.setNombre(rs.getString("vNombre"));
-                vegetal.setParametro(rs.getInt("pId"));
+               // vegetal.setParametro(rs.getInt("pId")); REVISAR ESTO
                 listaVegetal.add(vegetal);
             }
             

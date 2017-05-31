@@ -19,42 +19,42 @@ import java.util.logging.Logger;
  * @author Gautarra
  */
 public class DAOParametros {
-    
+
     Connection conexion;
     ArrayList<Parametros> listaParametros;
     PreparedStatement preparedStatement;
     ResultSet rs;
-    
+
     /**
-     * 
-     * @param conexion 
+     *
+     * @param conexion
      */
-    public DAOParametros(Connection conexion){
+    public DAOParametros(Connection conexion) {
         this.conexion = conexion;
-    }   
-    
+    }
+
     /**
      *
      * @param idCultivo
      * @return
      */
-    public ArrayList<Parametros> getParametrosPorCultivo(int idCultivo){
-    String statement;
-        Parametros parametros;
-        
+    public Parametros getParametrosPorCultivo(int idCultivo, int idVegetal) {
+        String statement;
+        Parametros parametros = null;
+
         try {
-            statement = "SELECT * from parametro " +
-                "inner join  cultivo on parametro.pId = cultivo.pId " +
-                "where cultivo.cId = (?) " +
-                "order by parametro.pId;";
-            
+            statement = "SELECT * from parametro "
+                    + "inner join  cultivo on parametro.pId = cultivo.pId "
+                    + "where cultivo.cId = (?) "
+                    + "order by parametro.pId;";
+
             preparedStatement = conexion.prepareStatement(statement);
             preparedStatement.setInt(1, idCultivo);
             rs = preparedStatement.executeQuery();
-            
+
             listaParametros = new ArrayList<>();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 parametros = new Parametros();
                 parametros.setAgua(rs.getDouble("pAgua"));
                 parametros.setHorasLuz(rs.getDouble("pHorasLuz"));
@@ -62,14 +62,14 @@ public class DAOParametros {
                 parametros.setTemperatura(rs.getDouble("pTemperatura"));
                 parametros.setTipoTierra(rs.getString("pTipoTierra"));
                 listaParametros.add(parametros);
-                
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return listaParametros;  
+
+        return parametros;
     }
-    
+
 }

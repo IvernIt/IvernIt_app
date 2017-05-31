@@ -14,14 +14,17 @@ import java.util.ArrayList;
  * @author Gautarra
  */
 public class Invernadero {
+
     private String nombre;
     private int id;
     private ArrayList<Cultivo> cultivo;
-    
-    DAOCultivo DaoCultivo;
-    
-    public Invernadero(Connection conexion){
-        
+    private DAOCultivo DaoCultivo;
+
+    public Invernadero() {
+
+    }
+
+    public Invernadero(Connection conexion) {
         DaoCultivo = new DAOCultivo(conexion);
     }
 
@@ -41,16 +44,15 @@ public class Invernadero {
         this.id = id;
     }
 
-    public ArrayList<Cultivo> getCultivo(int idInvernadero) {
-        cultivo = DaoCultivo.getCultivoPorInvernadero(idInvernadero);
+    public ArrayList<Cultivo> getCultivo() {
+        if (cultivo == null && DaoCultivo != null) {
+            cultivo = DaoCultivo.getCultivoPorInvernadero(id);
+        }
         return cultivo;
     }
 
     public void setCultivo(ArrayList<Cultivo> cultivo) {
         this.cultivo = cultivo;
     }
-    
-    
-    
-    
+
 }

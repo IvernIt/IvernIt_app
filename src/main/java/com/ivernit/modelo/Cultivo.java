@@ -5,13 +5,11 @@
  */
 package com.ivernit.modelo;
 
-import com.ivernit.dao.DAOEstadoCrecimiento;
 import com.ivernit.dao.DAOParametros;
 import com.ivernit.dao.DAOVegetal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -22,24 +20,12 @@ public class Cultivo {
     private int id;
     private Date fechaDeInicio;
     private ArrayList<Vegetal> vegetales;
-    private ArrayList<Parametros> parametros;
-    private Date fechaInicio;
-    
-    DAOParametros DaoParametros;
     DAOVegetal DaoVegetal;
     
-    public Cultivo(int id, Connection conexion){        
-        DaoParametros = new DAOParametros(conexion);           
+    public Cultivo(int id, Connection conexion){               
         DaoVegetal = new DAOVegetal(conexion); 
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }  
 
     public int getId() {
         return id;
@@ -62,15 +48,6 @@ public class Cultivo {
 
     public void setVegetales(ArrayList<Vegetal> vegetales) {
         this.vegetales = vegetales;
-    }
-
-    public ArrayList<Parametros> getParametros(int idCultivo) {
-        parametros = DaoParametros.getParametrosPorCultivo(idCultivo);
-        return parametros;
-    }
-
-    public void setParametros(ArrayList<Parametros> parametros) {
-        this.parametros = parametros;
     }
 
     public Vegetal getUltimoVegetal() {
