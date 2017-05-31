@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class Cultivo {
 
     private int id;
+    private String resultado;
     private Date fechaDeInicio;
     private ArrayList<Vegetal> vegetales;
     DAOVegetal DaoVegetal;
@@ -53,6 +54,23 @@ public class Cultivo {
         this.vegetales = vegetales;
     }
 
+
+    public String getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+
+    public DAOVegetal getDaoVegetal() {
+        return DaoVegetal;
+    }
+
+    public void setDaoVegetal(DAOVegetal DaoVegetal) {
+        this.DaoVegetal = DaoVegetal;
+    }
+    
     public Vegetal getUltimoVegetal() {
         Vegetal ultimo = null;
         for (Vegetal veg : getVegetales()) {

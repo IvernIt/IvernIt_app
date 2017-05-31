@@ -49,7 +49,6 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     private void initComponents() {
 
         this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        this.setBounds(0, 0, width, height);
         this.setLayout(new BorderLayout());
         this.add(panelLista(), BorderLayout.WEST);
         this.add(panelGestion(), BorderLayout.CENTER);
@@ -122,6 +121,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     public PanelGestion init(Usuario usuario, int parentWidth, int parentHeight) {
         this.width = parentWidth;
         this.height = parentHeight;
+        this.setBounds(0, 0, width, height);
         this.usuarioActivo = usuario;
         this.rellenarInvernaderos();
         this.tpGestion.setSelectedIndex(0);

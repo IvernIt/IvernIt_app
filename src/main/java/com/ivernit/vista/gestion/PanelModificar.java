@@ -195,13 +195,13 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
                 dataVector[i][Columnas.tierra.ordinal()] = param.getTipoTierra();
             }
         }
-        for (Cultivo cult : invernaderoActivo.getCultivo()) {
-            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
-                if (cult.getFechaDeInicio().equals(fechaInicio)) {
-                    
-                }
-            }
-        }
+//        for (Cultivo cult : invernaderoActivo.getCultivo()) {
+//            if (cult.getVegetales().get(0).getNombre().equals(nombreVegetal)) {
+//                if (cult.getFechaDeInicio().equals(fechaInicio)) {
+//                    
+//                }
+//            }
+//        }
         try {
             tVegetales.setRowSelectionInterval(0, 0);
         } catch (Exception e) {

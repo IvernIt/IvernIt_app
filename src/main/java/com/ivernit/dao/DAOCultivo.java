@@ -59,6 +59,7 @@ public class DAOCultivo {
                 cultivo = new Cultivo(rs.getInt("cId"));
                 cultivo.setId(rs.getInt("cId"));
                 cultivo.setFechaDeInicio(rs.getDate("cFechaInicio"));
+                cultivo.setResultado(rs.getString("cResultado"));
                 listaCultivo.add(cultivo);
             }
             
