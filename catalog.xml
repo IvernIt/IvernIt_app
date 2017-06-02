@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Pablo/Desktop/Programazioa/2016_2017/POPBL6/IvernIt_app/../IvernIt_server/src/main/resources/jaxb/response/Resultados.xsd" uri="src/main/resources/jaxb/Resultados/Resultados.xsd"/>
+</catalog>
