@@ -25,6 +25,7 @@ public class Cultivo {
 
     public Cultivo(int id) {
         DaoVegetal = new DAOVegetal();
+        this.id = id;
     }
 
     public int getId() {

@@ -29,6 +29,7 @@ public class Vegetal {
 
     public Vegetal(int id, int idCultivo) {
         this.id = id;
+        this.idCultivo = idCultivo;
         this.DaoEstadoCrecimiento = new DAOEstadoCrecimiento();
         this.DaoParametros = new DAOParametros();
     }

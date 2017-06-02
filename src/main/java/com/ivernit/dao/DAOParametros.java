@@ -42,37 +42,68 @@ public class DAOParametros {
         String statement;
         Parametros parametros = null;
 
-//        try {
-//            statement = "SELECT * from parametro "
-//                    + "inner join  cultivo on parametro.pId = cultivo.pId "
-//                    + "where cultivo.cId = (?) "
-//                    + "order by parametro.pId;";
-//
-//            preparedStatement = conexion.prepareStatement(statement);
-//            preparedStatement.setInt(1, idCultivo);
-//            rs = preparedStatement.executeQuery();
-//
-//            listaParametros = new ArrayList<>();
+        try {
+    
+            statement = "SELECT * from cultivo " + 
+                    "inner join parametro on cultivo.pId = parametro.pId " +
+                    "inner join vegetal on cultivo.vId = vegetal.vId " +
+                    "where vegetal.vId = (?) and cultivo.iId = (?) " +
+                    "order by parametro.pId;";
+            
 
-          // while (rs.next()) {
+            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement.setInt(1, idVegetal);
+            preparedStatement.setInt(2, idCultivo);
+            rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
                 parametros = new Parametros();
-                parametros.setAgua(25);
-                parametros.setHorasLuz(5);
-                parametros.setId(1);
-                parametros.setTemperatura(24);
-                parametros.setTipoTierra("morosa");
-               
-           // }
+                parametros.setAgua(rs.getDouble("pAgua"));
+                parametros.setHorasLuz(rs.getDouble("pHorasLuz"));
+                parametros.setId(rs.getInt("pId"));
+                parametros.setTemperatura(rs.getDouble("pTemperatura"));
+                parametros.setTipoTierra(rs.getString("pTipoTierra"));
+            }
 
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return parametros;
     }
 
-    public ArrayList<Parametros> getParametrosPorInverndero(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Parametros> getParametrosPorInverndero(int idInvernadero) {
+        
+        String statement;
+        Parametros parametros = null;
+
+        try {
+            statement = "SELECT * from parametro "
+                    + "inner join  cultivo on parametro.pId = cultivo.pId "
+                    + "where cultivo.iId = (?) "
+                    + "order by parametro.pId;";
+
+            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement.setInt(1, idInvernadero);
+            rs = preparedStatement.executeQuery();
+
+            listaParametros = new ArrayList<>();
+
+            while (rs.next()) {
+                parametros = new Parametros();
+                parametros.setAgua(rs.getDouble("pAgua"));
+                parametros.setHorasLuz(rs.getDouble("pHorasLuz"));
+                parametros.setId(rs.getInt("pId"));
+                parametros.setTemperatura(rs.getDouble("pTemperatura"));
+                parametros.setTipoTierra(rs.getString("pTipoTierra"));
+                listaParametros.add(parametros);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaParametros;      
     }
 
 }
