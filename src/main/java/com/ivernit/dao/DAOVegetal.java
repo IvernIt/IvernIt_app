@@ -5,6 +5,7 @@
  */
 package com.ivernit.dao;
 
+import com.ivernit.modelo.Usuario;
 import com.ivernit.modelo.Vegetal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,5 +67,44 @@ public class DAOVegetal {
         
         return listaVegetal;  
     }
+    
+    public void insertVegetal(Vegetal vegetal){
+        
+        String statement;
+        
+        try {
+            
+            statement = "insert into vegetal "
+                + "'vNombre'"
+                + " values"
+                + " ((?));";
+            
+            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement.setString(1, vegetal.getNombre());
+            
+        }catch (SQLException ex){
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateVegetal(Vegetal vegetal){
+        
+        String statement;
+        
+        try {
+            
+            statement = "update vegetal set "
+                + "'vNombre' = (?)"
+                + " where vId = (?)";
+            
+            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement.setString(1, vegetal.getNombre());
+            preparedStatement.setInt(2, vegetal.getId());
+            
+        }catch (SQLException ex){
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
 }

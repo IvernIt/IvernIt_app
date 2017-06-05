@@ -27,7 +27,6 @@ public class DAOCultivo {
 
     /**
      *
-     * @param conexion
      */
     public DAOCultivo(){        
         this.conexion = Conexion.conectar();        
@@ -68,6 +67,58 @@ public class DAOCultivo {
         }
         
         return listaCultivo;       
+    }
+    
+    public boolean insetCultivo(Cultivo cultivo, int idInvernadero){
+        String statement;
+        Boolean resultado = false;
+        
+        try {           
+            
+            statement = "insert into cultivo " +
+                "('cId', 'vId', 'pId', 'iId', 'cFechaInicio', 'cResultado') " +
+                "values ((?), (?), (?), (?), '(?)', '(?)'";
+            for(int i = 0; i < cultivo.getVegetales().size(); i++){
+                preparedStatement = conexion.prepareStatement(statement);
+                preparedStatement.setInt(1, cultivo.getId());
+                preparedStatement.setInt(2, cultivo.getVegetales().get(i).getId());
+                preparedStatement.setInt(3, cultivo.getVegetales().get(i).getParametro().getId());
+                preparedStatement.setInt(4, idInvernadero);
+                preparedStatement.setDate(5, cultivo.getFechaDeInicio());
+                preparedStatement.setString(6, cultivo.getResultado());
+                preparedStatement.executeUpdate();
+            }
+            resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
+    }
+    
+    public boolean updateCultivo(Cultivo cultivo, int idInvernadero){
+        String statement;
+        Boolean resultado = false;
+        
+        try {     
+            
+            statement = "update cultivo " +
+                "('cId' = (?), 'vId' = (?), 'pId' = (?), 'iId' = (?), 'cFechaInicio' = (?), 'cResultado' = (?)) " +
+                "where 'cId' = (?) and 'vId' = (?) and 'pId' = (?) and 'iId' = (?)";
+            for(int i = 0; i < cultivo.getVegetales().size(); i++){
+                preparedStatement = conexion.prepareStatement(statement);
+                preparedStatement.setInt(1, cultivo.getId());
+                preparedStatement.setInt(2, cultivo.getVegetales().get(i).getId());
+                preparedStatement.setInt(3, cultivo.getVegetales().get(i).getParametro().getId());
+                preparedStatement.setInt(4, idInvernadero);
+                preparedStatement.setDate(5, cultivo.getFechaDeInicio());
+                preparedStatement.setString(6, cultivo.getResultado());
+                preparedStatement.executeUpdate();
+            }
+            resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
     
 }
