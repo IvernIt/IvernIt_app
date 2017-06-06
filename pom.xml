@@ -42,6 +42,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.zeroc/i -->
+        <dependency>
+            <groupId>com.zeroc</groupId>
+            <artifactId>ice</artifactId>
+            <version>3.6.2</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.jtattoo/JTattoo -->
         <dependency>
             <groupId>com.jtattoo</groupId>
