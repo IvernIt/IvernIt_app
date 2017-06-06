@@ -134,8 +134,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         String strInvernadero = modelo.getElement(tInvernderos.getSelectedRow());
         if (usuarioActivo != null) {
             for (Invernadero inv : usuarioActivo.getInvernaderos()) {
-                if(inv.getNombre() == strInvernadero)
-                {
+                if(inv.getNombre().equals(strInvernadero)) {
                     pVer.actualizarDatos(inv);
                     pModificar.actualizarDatos(inv);
                     pResultado.actualizarDatos(inv);

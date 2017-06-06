@@ -7,7 +7,6 @@ package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOCultivo;
 import com.ivernit.dao.DAOParametros;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +26,10 @@ public class Invernadero {
         this.id = id;
         daoCultivo = new DAOCultivo();
         daoParametros = new DAOParametros();
+    }
+
+    public Invernadero(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getNombre() {

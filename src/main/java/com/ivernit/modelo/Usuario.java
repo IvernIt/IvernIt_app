@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class Usuario {
 
+    private static Usuario usuarioActivo;
     private int id;
     private String nombre;
     private boolean premium;
@@ -62,6 +63,14 @@ public class Usuario {
             invernaderos = daoInvernadero.getInvernaderoPorUsr(nombre);
         }
         return invernaderos;
+    }
+
+    public static Usuario getUsuarioActivo() {
+        return usuarioActivo;
+    }
+
+    public static void setUsuarioActivo(Usuario usuarioActivo) {
+        Usuario.usuarioActivo = usuarioActivo;
     }
 
 }

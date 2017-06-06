@@ -94,4 +94,12 @@ public class MainFrame extends JFrame {
         contentPane.repaint();
     }
 
+    public boolean doLogin() {
+        return pLogin.login();
+    }
+
+    public void resetLogin() {
+        pLogin.contrasenaIncorrecta();
+    }
+
 }

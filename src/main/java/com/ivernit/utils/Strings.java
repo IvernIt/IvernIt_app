@@ -64,5 +64,11 @@ public class Strings {
     public static String EDITAR = "Editar";
     public static String UNIDAD_RIEGO = "L / m2";
     public static String UNIDAD_TEMPERATURA = "ºC";
+    public static String CONTRASENA_INCORRECTA = "El usuario o la contraseña introducidas no son correctas";
+    public static String ERROR = "Error";
+    public static String GERMINACION = "Germinacion";
+    public static String AHIJAMIENTO = "Ahijamiento";
+    public static String GRAN_CRECIMIENTO = "Gran crecimiento";
+    public static String MADURACION = "Maduracion";
     
 }

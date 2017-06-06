@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -80,5 +81,15 @@ public class PanelLogin extends JInternalFrame {
         pfContraseña.setText("");
         setLocation(xPos, yPos);
         return this;
+    }
+
+    public void contrasenaIncorrecta() {
+        JOptionPane.showConfirmDialog(this, Strings.CONTRASENA_INCORRECTA, Strings.ERROR, JOptionPane.ERROR_MESSAGE, JOptionPane.OK_OPTION);
+        this.tfUsuario.setText("");
+        this.pfContraseña.setText("");
+    }
+
+    public boolean login() {
+        return true;
     }
 }
