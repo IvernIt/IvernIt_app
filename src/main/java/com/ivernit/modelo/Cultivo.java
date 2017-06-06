@@ -5,9 +5,7 @@
  */
 package com.ivernit.modelo;
 
-import com.ivernit.dao.DAOParametros;
 import com.ivernit.dao.DAOVegetal;
-import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 

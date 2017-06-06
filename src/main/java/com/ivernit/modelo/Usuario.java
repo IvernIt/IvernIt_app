@@ -16,7 +16,7 @@ public class Usuario {
 
     private static Usuario usuarioActivo;
     private int id;
-    private String nombre;
+    private String nombre, contraseña;
     private boolean premium;
     private ArrayList<Invernadero> invernaderos;
     private DAOInvernadero daoInvernadero;
@@ -28,6 +28,14 @@ public class Usuario {
     public Usuario(String nombre) {
         this.nombre = nombre;
         daoInvernadero = new DAOInvernadero();
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public int getId() {

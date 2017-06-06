@@ -105,5 +105,28 @@ public class DAOParametros {
 
         return listaParametros;      
     }
+    
+    public void insertParametros(Parametros parametro){
+        
+        String statement;
 
+        try {
+                
+            statement = "insert into parametro "
+                    + "('pAgua', 'pHorasLuz', 'pTemperatura', 'pTipoTierra'"
+                    + "values"
+                    + "((?), (?),(?),(?));";
+
+            preparedStatement = conexion.prepareStatement(statement);
+            preparedStatement.setDouble(1, parametro.getAgua());
+            preparedStatement.setDouble(2, parametro.getHorasLuz());
+            preparedStatement.setDouble(3, parametro.getTemperatura());
+            preparedStatement.setString(4, parametro.getTipoTierra());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
