@@ -15,14 +15,10 @@ import com.ivernit.vista.auxiliarControls.EditToolbar;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.SimpleTableRender;
 import com.ivernit.vista.auxiliarControls.SingleColTableModel;
-import com.ivernit.vista.mainFrame.MainFrame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.Date;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,8 +35,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Pablo
  */
 public class PanelModificar extends JPanel implements ListSelectionListener {
-    
-    private JPanel pEstados;
+
+    private JPanel pIdeal;
     
     private enum Columnas {
         riego, luz, temperatura, tierra, total
@@ -55,7 +51,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private JTable tVegetales;
     private JTable tEstados;
     private Invernadero invernaderoActivo;
-    private String SEPARADOR_VEGETAL = " | ";
+    private final String SEPARADOR_VEGETAL = " | ";
     private SimpleTableRender rEstados;
     private SimpleTableRender rParametros;
     
@@ -100,7 +96,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     }
     
     private JPanel crearPanelListaEstados() {
-        pEstados = new JPanel(new BorderLayout());
+        JPanel pEstados = new JPanel(new BorderLayout());
         JScrollPane spEstados = new JScrollPane();
         SingleColTableModel tmEstados = new SingleColTableModel();
         rEstados = new SimpleTableRender();
@@ -124,24 +120,24 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     }
     
     private JPanel crearPanelCultivoIdeal() {
-        JPanel pIdeal = new JPanel(new GridLayout(4, 2));
+        pIdeal = new JPanel(new GridLayout(4, 2));
         pIdeal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JLabel lAgua = new JLabel(Strings.RIEGO);
         JLabel lLuz = new JLabel(Strings.HORAS_LUZ);
         JLabel lTemperatura = new JLabel(Strings.TEMPERATURA);
         JLabel lTipoTierra = new JLabel(Strings.TIPO_TIERRA);
-        JTextField tfAgua = new DisabledJTextField("5");
-        JTextField tfLuz = new DisabledJTextField("11");
-        JTextField tfTemperatura = new DisabledJTextField("22ºC");
-        JTextField tfTierra = new DisabledJTextField("Limosa");
+        JTextField tfAguaIdeal = new DisabledJTextField("");
+        JTextField tfLuzIdeal = new DisabledJTextField("");
+        JTextField tfTemperaturaIdeal = new DisabledJTextField("");
+        JTextField tfTierraIdeal = new DisabledJTextField("");
         pIdeal.add(new NorthBorderPane(lAgua));
-        pIdeal.add(new NorthBorderPane(tfAgua));
+        pIdeal.add(new NorthBorderPane(tfAguaIdeal));
         pIdeal.add(new NorthBorderPane(lLuz));
-        pIdeal.add(new NorthBorderPane(tfLuz));
+        pIdeal.add(new NorthBorderPane(tfLuzIdeal));
         pIdeal.add(new NorthBorderPane(lTemperatura));
-        pIdeal.add(new NorthBorderPane(tfTemperatura));
+        pIdeal.add(new NorthBorderPane(tfTemperaturaIdeal));
         pIdeal.add(new NorthBorderPane(lTipoTierra));
-        pIdeal.add(new NorthBorderPane(tfTierra));
+        pIdeal.add(new NorthBorderPane(tfTierraIdeal));
         
         return pIdeal;
     }
@@ -179,9 +175,9 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         actualizarVegetales();
         actualizarParametros();
         if (Usuario.getUsuarioActivo().isPremium()) {
-            pEstados.setVisible(true);
+            pIdeal.setVisible(true);
         } else {
-            pEstados.setVisible(false);
+            pIdeal.setVisible(false);
         }
         
     }
