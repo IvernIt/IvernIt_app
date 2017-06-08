@@ -49,10 +49,10 @@ public class PanelVer extends JPanel {
             if (veg != null) {
                 dataVector[i][Columnas.vegetal.ordinal()] = veg.getNombre();
                 dataVector[i][Columnas.estado.ordinal()] = veg.getEstado().getNombre();
-                dataVector[i][Columnas.riego.ordinal()] = veg.getParametro().getAgua() + Strings.UNIDAD_RIEGO;
-                dataVector[i][Columnas.luz.ordinal()] = veg.getParametro().getHorasLuz();
-                dataVector[i][Columnas.temperatura.ordinal()] = veg.getParametro().getTemperatura() + Strings.UNIDAD_TEMPERATURA;
-                dataVector[i][Columnas.tierra.ordinal()] = veg.getParametro().getTipoTierra();
+                dataVector[i][Columnas.riego.ordinal()] = veg.getParametros().getAgua() + Strings.UNIDAD_RIEGO;
+                dataVector[i][Columnas.luz.ordinal()] = veg.getParametros().getHorasLuz();
+                dataVector[i][Columnas.temperatura.ordinal()] = veg.getParametros().getTemperatura() + Strings.UNIDAD_TEMPERATURA;
+                dataVector[i][Columnas.tierra.ordinal()] = veg.getParametros().getTipoTierra();
             }
         }
         tmVer.setDataVector(dataVector, columnNames);

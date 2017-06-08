@@ -6,8 +6,10 @@
 package com.ivernit.vista.auxiliarControls;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -16,12 +18,18 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Pablo
  */
-public class DisabledTableRender implements TableCellRenderer {
+public class SimpleTableRender implements TableCellRenderer {
 
-    ArrayList<Integer> disabledRows;
+    private ArrayList<Integer> disabledRows;
+    private int activa;
 
-    public DisabledTableRender() {
+    public SimpleTableRender() {
         disabledRows = new ArrayList<>();
+        activa = 0;
+    }
+
+    public void setActiva(int activa) {
+        this.activa = activa;
     }
 
     public void diableRow(int row) {
@@ -43,10 +51,24 @@ public class DisabledTableRender implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel celda = new JLabel();
-        celda.setText((String) value);
+        celda.setOpaque(true);
+        celda.setText(String.valueOf(value));        
         if (disabledRows.contains(row)) {
             celda.setEnabled(false);
+        } else {
+            if (row == activa) {
+                Font f = celda.getFont();
+                celda.setFont(f.deriveFont(f.getStyle() | Font.BOLD));
+            }
+            if (isSelected) {
+                celda.setBackground(com.jtattoo.plaf.acryl.AcrylLookAndFeel.getSelectionBackgroundColor());
+                celda.setForeground(com.jtattoo.plaf.acryl.AcrylLookAndFeel.getSelectionForegroundColor());
+            }
+            if (hasFocus) {
+                celda.setBorder(BorderFactory.createLineBorder(com.jtattoo.plaf.acryl.AcrylLookAndFeel.getFocusCellColor()));
+            }
         }
+
         return celda;
     }
 

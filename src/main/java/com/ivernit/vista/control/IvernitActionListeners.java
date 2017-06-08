@@ -37,6 +37,7 @@ public class IvernitActionListeners implements ActionListener {
     public final static String VER_INVERNADEROS = "verInvernaderos";
     public final static String PERFIL = "perfil";
     public final static String ACERCA_DE = "acercaDe";
+    public final static String SALIR = "salir";
 
     public static IvernitActionListeners get() {
         if (listener == null) {
@@ -100,6 +101,9 @@ public class IvernitActionListeners implements ActionListener {
             case PERFIL:
                 break;
             case ACERCA_DE:
+                break;
+            case SALIR:
+                mFrame.dispose();
                 break;
             default:
                 break;

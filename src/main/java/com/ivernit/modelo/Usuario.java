@@ -6,6 +6,7 @@
 package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOInvernadero;
+import com.ivernit.dao.DAOUsuario;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,6 @@ public class Usuario {
     private boolean premium;
     private ArrayList<Invernadero> invernaderos;
     private DAOInvernadero daoInvernadero;
-
     public Usuario() {
         invernaderos = new ArrayList<>();
     }
@@ -55,6 +55,7 @@ public class Usuario {
     }
 
     public boolean isPremium() {
+        
         return premium;
     }
 

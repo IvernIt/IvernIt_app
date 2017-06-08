@@ -5,11 +5,14 @@
  */
 package com.ivernit.vista.inicio;
 
+import com.ivernit.dao.DAOUsuario;
 import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.control.IvernitActionListeners;
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.ControlButton;
+import com.ivernit.vista.auxiliarControls.JPasswordFieldLimit;
+import com.ivernit.vista.auxiliarControls.JTextFieldLimit;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
@@ -18,8 +21,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -31,8 +32,8 @@ public class PanelLogin extends JInternalFrame {
     private int yPos = 153;
     private final int width = 335;
     private final int height = 190;
-    private JTextField tfUsuario;
-    private JPasswordField pfContraseña;
+    private JTextFieldLimit tfUsuario;
+    private JPasswordFieldLimit pfContraseña;
 
     public PanelLogin(int parentWidth, int parentHeight) {
         xPos = parentWidth / 2 - width / 2;
@@ -46,10 +47,12 @@ public class PanelLogin extends JInternalFrame {
         JPanel pBotones = new JPanel();
         JLabel lbUsuario = new JLabel(Strings.USUARIO);
         JLabel lbContraseña = new JLabel(Strings.CONTRASENA);
-        JButton bEntrar = new ControlButton(Strings.ENTRAR,IvernitActionListeners.ENTRAR);
-        JButton bRegistrarse = new ControlButton(Strings.REGISTRARSE,IvernitActionListeners.REGISTRO);
-        tfUsuario = new JTextField();
-        pfContraseña = new JPasswordField();
+        JButton bEntrar = new ControlButton(Strings.ENTRAR, IvernitActionListeners.ENTRAR);
+        JButton bRegistrarse = new ControlButton(Strings.REGISTRARSE, IvernitActionListeners.REGISTRO);
+        tfUsuario = new JTextFieldLimit();
+        tfUsuario.addActionListener(IvernitActionListeners.get());
+        tfUsuario.setActionCommand(IvernitActionListeners.ENTRAR);
+        pfContraseña = new JPasswordFieldLimit();
         this.setTitle(Strings.LOGIN);
         this.setBounds(xPos, yPos, width, height);
         this.setLayout(new BorderLayout());
@@ -62,18 +65,18 @@ public class PanelLogin extends JInternalFrame {
         pPrincipal.add(new NorthBorderPane(tfUsuario));
         pPrincipal.add(new NorthBorderPane(lbContraseña));
         pPrincipal.add(new NorthBorderPane(pfContraseña));
-        
+
         this.add(pPrincipal, BorderLayout.CENTER);
         this.add(pBotones, BorderLayout.SOUTH);
         this.setVisible(true);
     }
-    public Usuario getUsuario()
-    {
+
+    public Usuario getUsuario() {
         Usuario usuario;
         usuario = new Usuario(tfUsuario.getText());
         return usuario;
     }
-    
+
     public PanelLogin init(int parentWidth, int parentHeight) {
         xPos = parentWidth / 2 - width / 2;
         yPos = parentHeight / 2 - height / 2;
@@ -90,6 +93,12 @@ public class PanelLogin extends JInternalFrame {
     }
 
     public boolean login() {
-        return true;
+        boolean logged = true;
+        if (logged) {
+            DAOUsuario daoUsuario = new DAOUsuario();
+            Usuario activo = daoUsuario.getUsuario(tfUsuario.getText());
+            Usuario.setUsuarioActivo(activo);
+        }
+        return logged;
     }
 }

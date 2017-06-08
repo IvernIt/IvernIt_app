@@ -7,7 +7,6 @@ package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOEstadoCrecimiento;
 import com.ivernit.dao.DAOParametros;
-import java.sql.Connection;
 
 /**
  *
@@ -34,7 +33,7 @@ public class Vegetal {
         this.DaoParametros = new DAOParametros();
     }
 
-    public Parametros getParametro() {
+    public Parametros getParametros() {
         if (parametro == null && DaoParametros != null) {
             parametro = DaoParametros.getParametrosPorCultivo(idCultivo, id);
         }

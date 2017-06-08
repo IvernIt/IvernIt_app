@@ -70,5 +70,7 @@ public class Strings {
     public static String AHIJAMIENTO = "Ahijamiento";
     public static String GRAN_CRECIMIENTO = "Gran crecimiento";
     public static String MADURACION = "Maduracion";
+    public static String SALIR = "Salir";
+    public static String MSG_CARACTERES_INVALIDOS = "No se permite introducir caráteres especiales";
     
 }

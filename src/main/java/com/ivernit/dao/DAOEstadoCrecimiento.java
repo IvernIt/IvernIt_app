@@ -44,7 +44,7 @@ public class DAOEstadoCrecimiento {
         try {
             statement = "SELECT * from estadoCrecimiento " +
                 "inner join vegetal on estadoCrecimiento.ecId = vegetal.ecId " +
-                "where vegetal.ecId = (?);";
+                "where vegetal.vId = (?);";
             
             preparedStatement = conexion.prepareStatement(statement);
             preparedStatement.setInt(1, idVegetal);
