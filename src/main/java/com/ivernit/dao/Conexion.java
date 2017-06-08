@@ -36,7 +36,7 @@ public class Conexion {
             try {
                 Properties prop = new Properties();
                 prop.load(new FileInputStream(FICHERO_PROPIEDADES));
-                jdbcDriverStr = DRIVER;
+                jdbcDriverStr = DRIVER.toString();
                 jdbcURL = prop.getProperty(HOST)
                         + prop.getProperty(DATABASE)
                         + "?user=" + prop.getProperty(USUARIO)

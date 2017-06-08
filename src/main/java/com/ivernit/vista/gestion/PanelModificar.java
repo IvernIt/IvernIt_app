@@ -13,6 +13,7 @@ import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.vista.auxiliarControls.DisabledJTextField;
 import com.ivernit.vista.auxiliarControls.EditToolbar;
 import com.ivernit.utils.Strings;
+import com.ivernit.vista.auxiliarControls.ImagePanel;
 import com.ivernit.vista.auxiliarControls.SimpleTableRender;
 import com.ivernit.vista.auxiliarControls.SingleColTableModel;
 import java.awt.BorderLayout;
@@ -37,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 public class PanelModificar extends JPanel implements ListSelectionListener {
 
     private JPanel pIdeal;
+    private final String IMAGEN_PREMIUM = "icons/premium.png";
     
     private enum Columnas {
         riego, luz, temperatura, tierra, total
@@ -120,6 +122,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     }
     
     private JPanel crearPanelCultivoIdeal() {
+        JPanel premiunPane = new ImagePanel(IMAGEN_PREMIUM);
         pIdeal = new JPanel(new GridLayout(4, 2));
         pIdeal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JLabel lAgua = new JLabel(Strings.RIEGO);
@@ -138,8 +141,9 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         pIdeal.add(new NorthBorderPane(tfTemperaturaIdeal));
         pIdeal.add(new NorthBorderPane(lTipoTierra));
         pIdeal.add(new NorthBorderPane(tfTierraIdeal));
-        
-        return pIdeal;
+        pIdeal.setOpaque(true);
+        premiunPane.add(pIdeal,BorderLayout.CENTER);        
+        return premiunPane;
     }
     
     private JPanel crearPanelParametros() {
@@ -175,6 +179,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         actualizarVegetales();
         actualizarParametros();
         if (Usuario.getUsuarioActivo().isPremium()) {
+            rellenarPanelIdea();
             pIdeal.setVisible(true);
         } else {
             pIdeal.setVisible(false);
