@@ -14,6 +14,7 @@ import com.ivernit.vista.inicio.PanelRegistro;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -25,6 +26,7 @@ public class MainFrame extends JFrame {
     private static MainFrame mainFrame = null;
     private final int xSize = 680;
     private final int ySize = 400;
+    private final ImageIcon I_IVERNIT = new ImageIcon("icons/IvernitLogo.png");
     private MainMenuBar menu;
     private PanelLogin pLogin;
     private PanelGestion pGestion;
@@ -52,6 +54,7 @@ public class MainFrame extends JFrame {
         this.setPreferredSize(new Dimension(xSize, ySize));
         this.setResizable(false);
         this.setTitle(Strings.TITULO);
+        this.setIconImage(I_IVERNIT.getImage());
         menu = new MainMenuBar();
         menu.inicioSesion();
         this.setJMenuBar(menu);

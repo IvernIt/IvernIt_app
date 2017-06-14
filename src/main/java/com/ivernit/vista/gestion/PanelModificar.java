@@ -8,7 +8,9 @@ package com.ivernit.vista.gestion;
 import com.ivernit.modelo.Cultivo;
 import com.ivernit.modelo.Invernadero;
 import com.ivernit.modelo.Parametros;
+import com.ivernit.modelo.Resultados;
 import com.ivernit.modelo.Usuario;
+import com.ivernit.services.CultivoIdeal;
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.vista.auxiliarControls.DisabledJTextField;
 import com.ivernit.vista.auxiliarControls.EditToolbar;
@@ -30,6 +32,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.ws.rs.core.GenericType;
 
 /**
  *
@@ -39,7 +42,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
 
     private JPanel pIdeal;
     private final String IMAGEN_PREMIUM = "icons/premium.png";
-    
+    private CultivoIdeal cultivoIdeal;
     private enum Columnas {
         riego, luz, temperatura, tierra, total
     };
@@ -58,6 +61,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private SimpleTableRender rParametros;
     
     public PanelModificar() {
+        cultivoIdeal = new CultivoIdeal();
         this.setLayout(new BorderLayout());
         this.add(crearPanelListaVegetales(), BorderLayout.WEST);
         this.add(crearPanelSeleccion(), BorderLayout.CENTER);
@@ -235,6 +239,12 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
             tVegetales.setRowSelectionInterval(0, 0);
         } catch (Exception e) {
         }
+    }    
+    
+    private void rellenarPanelIdea() {
+        GenericType<Resultados> gType = new GenericType<Resultados>() {};
+        Resultados rIdeal = (Resultados) cultivoIdeal.getXml(gType, "1","1");
+        
     }
     
     

@@ -5,6 +5,8 @@
  */
 package com.ivernit.services;
 
+import javax.ws.rs.core.GenericType;
+
 /**
  * Jersey REST client generated for REST resource:we [algorithm]<br>
  * USAGE:
@@ -34,7 +36,7 @@ public class CultivoIdeal {
      * @param ec query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T getXml(Class<T> responseType, String id, String ec) throws javax.ws.rs.ClientErrorException {
+    public <T> T getXml(GenericType<T> responseType, String id, String ec) throws javax.ws.rs.ClientErrorException {
         String[] queryParamNames = new String[]{"id", "ec"};
         String[] queryParamValues = new String[]{id, ec};
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
