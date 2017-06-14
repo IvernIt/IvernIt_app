@@ -33,7 +33,7 @@ public class Vegetal {
         this.DaoParametros = new DAOParametros();
     }
 
-    public Parametros getParametro() {
+    public Parametros getParametros() {
         if (parametro == null && DaoParametros != null) {
             parametro = DaoParametros.getParametrosPorCultivo(idCultivo, id);
         }

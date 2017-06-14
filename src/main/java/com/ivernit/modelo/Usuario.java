@@ -6,6 +6,7 @@
 package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOInvernadero;
+import com.ivernit.dao.DAOUsuario;
 import java.util.ArrayList;
 
 /**
@@ -14,12 +15,12 @@ import java.util.ArrayList;
  */
 public class Usuario {
 
+    private static Usuario usuarioActivo;
     private int id;
     private String nombre, contraseña;
     private boolean premium;
     private ArrayList<Invernadero> invernaderos;
     private DAOInvernadero daoInvernadero;
-
     public Usuario() {
         invernaderos = new ArrayList<>();
     }
@@ -54,6 +55,7 @@ public class Usuario {
     }
 
     public boolean isPremium() {
+        
         return premium;
     }
 
@@ -70,6 +72,14 @@ public class Usuario {
             invernaderos = daoInvernadero.getInvernaderoPorUsr(nombre);
         }
         return invernaderos;
+    }
+
+    public static Usuario getUsuarioActivo() {
+        return usuarioActivo;
+    }
+
+    public static void setUsuarioActivo(Usuario usuarioActivo) {
+        Usuario.usuarioActivo = usuarioActivo;
     }
 
 }

@@ -28,6 +28,10 @@ public class Invernadero {
         daoParametros = new DAOParametros();
     }
 
+    public Invernadero(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }

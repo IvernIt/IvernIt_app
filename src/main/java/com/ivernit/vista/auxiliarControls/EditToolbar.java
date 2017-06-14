@@ -81,8 +81,7 @@ public class EditToolbar extends JToolBar implements ActionListener {
                     correcto = true;
                 } while (correcto == false);
                 if (nuevo.isEmpty() == false) {
-                    model.removeRow(row);
-                    model.addElement(nuevo,row);
+                    model.renameElement(row,nuevo);
                 }
                 break;
             case ELIMINAR:
@@ -91,7 +90,7 @@ public class EditToolbar extends JToolBar implements ActionListener {
                 int ok = JOptionPane.showConfirmDialog(MainFrame.get(), Strings.SEGURO_ELIMINAR + elemento,Strings.ELIMINAR, JOptionPane.OK_CANCEL_OPTION,JOptionPane.OK_CANCEL_OPTION,I_DELETE);
                 System.out.println(ok);
                 if(ok == JOptionPane.OK_OPTION) {
-                    model.removeRow(row);
+                    model.removeElement(row);
                 }
                 break;
             default:

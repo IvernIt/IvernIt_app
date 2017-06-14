@@ -5,9 +5,12 @@
  */
 package com.ivernit.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +21,12 @@ import java.util.logging.Logger;
 public class Conexion {
 
     private static Connection connection;
+    private static final String FICHERO_PROPIEDADES = "ivernit.properties";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String HOST = "host";
+    private static final String DATABASE = "database";
+    private static final String USUARIO = "usuario";
+    private static final String CONTRASEÑA = "contrasena";
 
     /**
      *
@@ -28,12 +37,18 @@ public class Conexion {
         String jdbcURL;
 
         if (connection == null) {
-            jdbcDriverStr = "com.mysql.jdbc.Driver";
-            jdbcURL = "jdbc:mysql://sampru.sytes.net/IvernIt?user=ivernit&password=1vern1t";
             try {
+                Properties prop = new Properties();
+                prop.load(new FileInputStream(FICHERO_PROPIEDADES));
+                jdbcDriverStr = DRIVER.toString();
+                jdbcURL = prop.getProperty(HOST)
+                        + prop.getProperty(DATABASE)
+                        + "?user=" + prop.getProperty(USUARIO)
+                        + "&password=" + prop.getProperty(CONTRASEÑA);
+
                 Class.forName(jdbcDriverStr);
                 connection = DriverManager.getConnection(jdbcURL);
-            } catch (ClassNotFoundException | SQLException ex ) {
+            } catch (ClassNotFoundException | SQLException | IOException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("conectado");

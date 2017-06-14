@@ -56,7 +56,7 @@ public class Parametros {
     public void setTipoTierra(String tipoTierra) {
         this.tipoTierra = tipoTierra;
     }
-    
+ 
     
     
 }

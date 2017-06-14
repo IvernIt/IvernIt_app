@@ -18,83 +18,77 @@ import java.util.logging.Logger;
  * @author Gautarra
  */
 public class DAOUsuario {
-    
+
     Connection conexion;
-    
+
     PreparedStatement preparedStatement;
     ResultSet rs;
 
-    public DAOUsuario(){        
-        this.conexion = Conexion.conectar();      
+    public DAOUsuario() {
+        this.conexion = Conexion.conectar();
     }
-    
-    public void insertUsuario(Usuario usuario){
-        
+
+    public void insertUsuario(Usuario usuario) {
+
         String statement;
-        
+
         try {
-            
+
             statement = "insert into usuario "
-                + "'uNombre', 'uContraseña', 'uPremium'"
-                + " values"
-                + " ((?), (?), (?), (?));";
-            
+                    + "'uNombre', 'uContraseña', 'uPremium'"
+                    + " values"
+                    + " ((?), (?), (?), (?));";
+
             preparedStatement = conexion.prepareStatement(statement);
             preparedStatement.setString(1, usuario.getNombre());
             preparedStatement.setString(2, usuario.getContraseña());
             preparedStatement.setBoolean(3, usuario.isPremium());
-            
-        }catch (SQLException ex){
+
+        } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Usuario getUsuario(int idUsuario){
-        
+
+    public Usuario getUsuario(String nombreUsuario) {
+
         String statement;
-        Usuario usuario = null;
-        
+        Usuario usuario = new Usuario();
+
         try {
-            
-            statement = "select * from usuario"
-                + " where uId = (?)"
-                + " order by iId;";
-            
+            statement = "select * from usuario where uNombre = (?)";
+
             preparedStatement = conexion.prepareStatement(statement);
-            preparedStatement.setInt(1, idUsuario);   
-            
-            usuario = new Usuario();
-            
-            while(rs.next()){
+            preparedStatement.setString(1, nombreUsuario);
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
                 usuario.setId(rs.getInt("uId"));
-                usuario.setContraseña(rs.getString("uContrasena"));
                 usuario.setPremium(rs.getBoolean("uPremium"));
                 usuario.setNombre(rs.getString("uNombre"));
             }
-            
-        }catch (SQLException ex){
+
+        } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuario;
-    }    
-    
-    public void updateUsuario(Usuario usuario){
-        
+    }
+
+    public void updateUsuario(Usuario usuario) {
+
         String statement;
-        
+
         try {
-            
+
             statement = "update usuario set "
-                + "'uNombre' = (?), 'uContrasena' = (?), 'uPremium' = (?)"
-                + " where 'uId' = (?);";
-            
+                    + "'uNombre' = (?), 'uContrasena' = (?), 'uPremium' = (?)"
+                    + " where 'uId' = (?);";
+
             preparedStatement = conexion.prepareStatement(statement);
             preparedStatement.setString(1, usuario.getNombre());
             preparedStatement.setString(2, usuario.getContraseña());
             preparedStatement.setBoolean(3, usuario.isPremium());
             preparedStatement.setInt(4, usuario.getId());
-            
-        }catch (SQLException ex){
+
+        } catch (SQLException ex) {
             Logger.getLogger(DAOInvernadero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -5,6 +5,7 @@
  */
 package com.ivernit.vista.control;
 
+import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.mainFrame.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ public class IvernitActionListeners implements ActionListener {
     public final static String VER_INVERNADEROS = "verInvernaderos";
     public final static String PERFIL = "perfil";
     public final static String ACERCA_DE = "acercaDe";
+    public final static String SALIR = "salir";
 
     public static IvernitActionListeners get() {
         if (listener == null) {
@@ -49,12 +51,16 @@ public class IvernitActionListeners implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        MainFrame mFrame = MainFrame.get();
         switch (e.getActionCommand()) {
             case ENTRAR:
-                MainFrame.get().mostrarGestion();
+                if(mFrame.doLogin())        
+                    mFrame.mostrarGestion();
+                else
+                    mFrame.resetLogin();
                 break;
             case REGISTRO:
-                MainFrame.get().mostrarRegistro();
+                mFrame.mostrarRegistro();
                 break;
             case REGISTRARSE:
                 break;
@@ -79,22 +85,25 @@ public class IvernitActionListeners implements ActionListener {
             case ENVIAR_AYUDA:
                 break;
             case PEDIR_AYUDA:
-                MainFrame.get().mostrarAyuda();
+                mFrame.mostrarAyuda();
                 break;
             case MENU_LOGIN:
-                MainFrame.get().mostrarLogin();
+                mFrame.mostrarLogin();
                 break;
             case CERRAR_SESION:
-                MainFrame.get().mostrarLogin();
+                mFrame.mostrarLogin();
                 break;
             case IMPORTAR_INVERNADERO:
                 break;
             case VER_INVERNADEROS:
-                MainFrame.get().mostrarGestion();
+                mFrame.mostrarGestion();
                 break;
             case PERFIL:
                 break;
             case ACERCA_DE:
+                break;
+            case SALIR:
+                mFrame.dispose();
                 break;
             default:
                 break;

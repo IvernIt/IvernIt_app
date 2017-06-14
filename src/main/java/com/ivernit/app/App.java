@@ -16,7 +16,6 @@ public class App {
     public App() {
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
