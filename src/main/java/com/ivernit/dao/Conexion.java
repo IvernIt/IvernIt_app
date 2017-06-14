@@ -28,7 +28,11 @@ public class Conexion {
     private static final String USUARIO = "usuario";
     private static final String CONTRASEÑA = "contrasena";
 
-    public static Connection conectar() {
+    /**
+     *
+     * @return
+     */
+    synchronized public static Connection conectar() {
         String jdbcDriverStr;
         String jdbcURL;
 
@@ -52,13 +56,16 @@ public class Conexion {
         return connection;
     }
 
+    /**
+     * 
+     */
     public static void close() {
         try {
             if (connection != null) {
                 connection.close();
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

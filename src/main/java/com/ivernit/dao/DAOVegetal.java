@@ -5,7 +5,7 @@
  */
 package com.ivernit.dao;
 
-import com.ivernit.modelo.Usuario;
+import com.ivernit.modelo.Parametros;
 import com.ivernit.modelo.Vegetal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,6 +41,7 @@ public class DAOVegetal {
     public ArrayList<Vegetal> getVegetalPorCultivo(int idCultivo){
     String statement;
         Vegetal vegetal;
+        Parametros parametro;
         
         try {
             statement = "SELECT * from vegetal " +
@@ -57,7 +58,9 @@ public class DAOVegetal {
             while(rs.next()){
                 vegetal = new Vegetal(rs.getInt("vId"), idCultivo);
                 vegetal.setNombre(rs.getString("vNombre"));
-               // vegetal.setParametro(rs.getInt("pId")); REVISAR ESTO
+                parametro = new Parametros();
+                parametro = vegetal.getParametro();
+                vegetal.setParametro(parametro);
                 listaVegetal.add(vegetal);
             }
             
