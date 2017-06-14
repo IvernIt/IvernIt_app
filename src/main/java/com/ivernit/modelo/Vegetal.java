@@ -7,7 +7,6 @@ package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOEstadoCrecimiento;
 import com.ivernit.dao.DAOParametros;
-import java.sql.Connection;
 
 /**
  *

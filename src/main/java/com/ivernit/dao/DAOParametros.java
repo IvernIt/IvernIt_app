@@ -47,7 +47,7 @@ public class DAOParametros {
             statement = "SELECT * from cultivo " + 
                     "inner join parametro on cultivo.pId = parametro.pId " +
                     "inner join vegetal on cultivo.vId = vegetal.vId " +
-                    "where vegetal.vId = (?) and cultivo.iId = (?) " +
+                    "where vegetal.vId = (?) and cultivo.cId = (?) " +
                     "order by parametro.pId;";
             
 
