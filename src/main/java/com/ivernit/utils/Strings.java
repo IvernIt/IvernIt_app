@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.utils;
 
-import javax.swing.Icon;
-
 /**
- *
+ * En esta clase se almacenan todas las strings que se le mostrarán al usuario
+ * en caso de querer hacer quere hacer uan opcion de camio de idioma, habría que
+ * simplemente, substituir estas variables.
  * @author Pablo
  */
 public class Strings {

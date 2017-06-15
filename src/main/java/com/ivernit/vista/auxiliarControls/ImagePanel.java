@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- *
+ * Este es una panel que contiene una imagen.
  * @author Pablo
  */
 public class ImagePanel extends JPanel{
@@ -20,9 +20,7 @@ public class ImagePanel extends JPanel{
        super(new BorderLayout());
        try {                
           image = ImageIO.read(new File(src));
-       } catch (IOException ex) {
-            // handle exception...
-       }
+       } catch (IOException ex) {}
     }
 
     @Override

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.gestion;
 
 import com.ivernit.modelo.Cultivo;
@@ -15,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * En este panel se introducirán los resultado obtenidos
  * @author Pablo
  */
 public class PanelResultados extends JPanel implements ListSelectionListener {
@@ -69,6 +63,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         } catch (Exception e) {
         }
         tVegetales.getSelectionModel().addListSelectionListener(this);
+        tVegetales.getTableHeader().setReorderingAllowed(false);
         spVegetales.setViewportView(tVegetales);
         spVegetales.setPreferredSize(new Dimension(135, 0));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
@@ -106,6 +101,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
             tParametros.setRowSelectionInterval(0, 0);
         } catch (Exception e) {
         }
+        tParametros.getTableHeader().setReorderingAllowed(false);
         spParametros.setViewportView(tParametros);
         pParametros.add(spParametros, BorderLayout.CENTER);
         return pParametros;

@@ -10,7 +10,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
- *
+ * Esta clase auxiliar crea un panel que ajusta un elemento en su interior y no 
+ * deja que se espanda completamente.
  * @author Pablo
  */
 public class NorthBorderPane extends JPanel{

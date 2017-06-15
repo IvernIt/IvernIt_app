@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.modelo;
 
 /**
- *
+ * Se almacenan los diferentes parametros con los que se cultivara un vegetal
  * @author Gautarra
  */
 public class Parametros {

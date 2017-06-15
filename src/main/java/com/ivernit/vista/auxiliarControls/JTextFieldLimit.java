@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.auxiliarControls;
 
+import static com.google.common.collect.Iterables.limit;
 import com.ivernit.utils.Strings;
 import com.ivernit.vista.mainFrame.MainFrame;
 import java.util.regex.Pattern;
@@ -16,17 +12,29 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
 /**
+ * Crea un JTextField que está limitado tanto por la cantidad de caracteres que
+ * se pueden introducir, como por los caracteres que se pueden introducir. Los
+ * caracteres validos son todos aquellos que cumplan la expersion almacenada en
+ * VALID_STRING_REGEX
  *
  * @author Pablo
  */
 public class JTextFieldLimit extends JTextField {
 
-    private final int limit;
-    private final String VALID_STRING_REGEX = "[0-9a-zA-Z ]*";
+    private int limit = 20;
+    private final String VALID_STRING_REGEX = "[0-9a-zA-Z @.]*";
 
     public JTextFieldLimit() {
         super();
-        this.limit = 20;
+    }
+
+    /**
+     * Usar este constructor en caso de necesitar un campo con más largo
+     * @param limit 
+     */
+    public JTextFieldLimit(int limit) {
+        super();
+        this.limit = limit;
     }
 
     @Override
@@ -34,6 +42,10 @@ public class JTextFieldLimit extends JTextField {
         return new LimitDocument();
     }
 
+    /**
+     * Se ha de crear una clase que permita escuchar las acciones antes de que
+     * se lleguen a visualizar
+     */
     private class LimitDocument extends PlainDocument {
 
         @Override
@@ -48,7 +60,7 @@ public class JTextFieldLimit extends JTextField {
                     }
                 } else {
                     JOptionPane.showConfirmDialog(MainFrame.get(),
-                            Strings.MSG_CARACTERES_INVALIDOS +": " + str,
+                            Strings.MSG_CARACTERES_INVALIDOS + ": " + str,
                             Strings.ERROR,
                             JOptionPane.PLAIN_MESSAGE,
                             JOptionPane.ERROR_MESSAGE);

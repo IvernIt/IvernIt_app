@@ -1,23 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.inicio;
 
 import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import com.ivernit.utils.Strings;
+import com.ivernit.vista.auxiliarControls.JPasswordFieldLimit;
+import com.ivernit.vista.auxiliarControls.JTextFieldLimit;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.PopupMenu;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -29,10 +23,10 @@ public class PanelRegistro extends JInternalFrame{
     private int yPos = 153;
     private final int width = 335;
     private final int height = 300;
-    private JTextField tfUsuario;
-    private JTextField tfEmail;
-    private JPasswordField pfContraseña;
-    private JPasswordField pfRepetir;
+    private JTextFieldLimit tfUsuario;
+    private JTextFieldLimit tfEmail;
+    private JPasswordFieldLimit pfContraseña;
+    private JPasswordFieldLimit pfRepetir;
 
     
     public PanelRegistro(int parentWidth, int parentHeight) {
@@ -51,10 +45,10 @@ public class PanelRegistro extends JInternalFrame{
         JLabel lbRepetir = new JLabel(Strings.REPETIR_CONTRASENA);
         JButton bPremium = new JButton(Strings.REGISTRO_PREMIUM);
         JButton bRegistrarse = new JButton(Strings.REGISTRARSE);
-        tfUsuario = new JTextField();
-        tfEmail = new JTextField();
-        pfRepetir = new JPasswordField();
-        pfContraseña = new JPasswordField();
+        tfUsuario = new JTextFieldLimit();
+        tfEmail = new JTextFieldLimit(40);
+        pfRepetir = new JPasswordFieldLimit();
+        pfContraseña = new JPasswordFieldLimit();
         this.setTitle(Strings.REGISTRO);
         this.setFrameIcon(null);
         this.setBounds(xPos, yPos, width, height);

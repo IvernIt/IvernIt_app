@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.inicio;
 
 import com.ivernit.dao.DAOUsuario;
@@ -23,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
+ * Este panel se usará para recoger datos del usuario que se quiere logear
  * @author Pablo
  */
 public class PanelLogin extends JInternalFrame {

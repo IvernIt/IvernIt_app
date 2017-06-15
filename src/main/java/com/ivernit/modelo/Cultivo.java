@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOVegetal;
@@ -10,7 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase relaciona las etapas del cultivo de un vegetal
  * @author Gautarra
  */
 public class Cultivo {
@@ -69,7 +64,10 @@ public class Cultivo {
     public void setDaoVegetal(DAOVegetal DaoVegetal) {
         this.DaoVegetal = DaoVegetal;
     }
-    
+   /**
+    * Se busca el estado del vegetal más avanzado
+    * @return el vegetal con el estado de crecimiento más avanzado
+    */
     public Vegetal getUltimoVegetal() {
         Vegetal ultimo = null;
         for (Vegetal veg : getVegetales()) {

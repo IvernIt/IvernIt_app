@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.control;
 
-import com.ivernit.modelo.Usuario;
 import com.ivernit.vista.mainFrame.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * Esta clase escucha la mayoría de los eventos del programa y realiza las 
+ * accioenes correspondientes
  * @author Pablo
  */
 public class IvernitActionListeners implements ActionListener {

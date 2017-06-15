@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.modelo;
 
 import com.ivernit.dao.DAOEstadoCrecimiento;
 import com.ivernit.dao.DAOParametros;
 
 /**
- *
+ * Se relaciona un vegetal con su estado de crecimiento y parámetros
  * @author Gautarra
  */
 public class Vegetal {

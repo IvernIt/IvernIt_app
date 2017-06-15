@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.services;
 
 import javax.ws.rs.core.GenericType;
@@ -31,10 +26,10 @@ public class CultivoIdeal {
     }
 
     /**
-     * @param responseType Class representing the response
-     * @param id query parameter
-     * @param ec query parameter
-     * @return response object (instance of responseType class)
+     * @param responseType Clase que se espera recoger
+     * @param id id del vegetal
+     * @param ec estado de crecimiento del vegetal
+     * @return cultivo ideal
      */
     public <T> T getXml(GenericType<T> responseType, String id, String ec) throws javax.ws.rs.ClientErrorException {
         String[] queryParamNames = new String[]{"id", "ec"};

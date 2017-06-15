@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.gestion;
 
 import com.ivernit.modelo.Invernadero;
@@ -25,7 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- *
+ * En este panel se muestran todas las opciones de gestión.
  * @author Pablo
  */
 public class PanelGestion extends JPanel implements ListSelectionListener {
@@ -64,6 +59,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         tInvernderos.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tInvernderos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tInvernderos.getSelectionModel().addListSelectionListener(this);
+        tInvernderos.getTableHeader().setReorderingAllowed(false);
         spLista.setViewportView(tInvernderos);
         spLista.setPreferredSize(new Dimension(135, 0));
         pInvernaderos.add(spLista, BorderLayout.CENTER);
@@ -117,7 +113,13 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
             }
         }
     }
-
+    /**
+     * Una vez iniciada la sesión, se cargará la información del usuario
+     * @param usuario usuario logeado
+     * @param parentWidth ancho de la ventana principal
+     * @param parentHeight alto de la ventana principal
+     * @return 
+     */
     public PanelGestion init(Usuario usuario, int parentWidth, int parentHeight) {
         this.width = parentWidth;
         this.height = parentHeight;
@@ -128,7 +130,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         this.actualizarDatos();
         return this;
     }
-
+    
     private void actualizarDatos() {
         SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
         String strInvernadero = modelo.getElement(tInvernderos.getSelectedRow());

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Es un modelo para qué una tabla se comporte como una lista. Para poder 
+ * ponerle una cabecera.
  * @author Pablo
  */
 public class SingleColTableModel extends DefaultTableModel {

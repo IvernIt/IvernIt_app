@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.dao;
 
 import com.ivernit.modelo.Parametros;
@@ -58,9 +53,6 @@ public class DAOVegetal {
             while(rs.next()){
                 vegetal = new Vegetal(rs.getInt("vId"), idCultivo);
                 vegetal.setNombre(rs.getString("vNombre"));
-                parametro = new Parametros();
-                parametro = vegetal.getParametro();
-                vegetal.setParametro(parametro);
                 listaVegetal.add(vegetal);
             }
             

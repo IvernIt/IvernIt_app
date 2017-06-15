@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.auxiliarControls;
 
 import com.ivernit.utils.Strings;
@@ -17,7 +12,8 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 
 /**
- *
+ * Esta clase relaciona un barra de herramientas con un lista. La barra de 
+ * herramientas contiene tres opciones: borrar, editar, y crear.
  * @author Pablo
  */
 public class EditToolbar extends JToolBar implements ActionListener {
@@ -57,6 +53,11 @@ public class EditToolbar extends JToolBar implements ActionListener {
         this.add(bEliminar);
     }
 
+    /**
+     * Se encarga de realizar acciones en la tabla dependiendo del boton que se
+     * ha pulsado.
+     * @param e 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         int row;

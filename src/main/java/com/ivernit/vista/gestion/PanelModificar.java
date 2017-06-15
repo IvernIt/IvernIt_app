@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.ws.rs.core.GenericType;
 
 /**
- *
+ * En este pane se mustrá los parametros que se pueden cambiar en el cultivo
  * @author Pablo
  */
 public class PanelModificar extends JPanel implements ListSelectionListener {
@@ -79,6 +79,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         } catch (Exception e) {
         }
         tVegetales.getSelectionModel().addListSelectionListener(this);
+        tVegetales.getTableHeader().setReorderingAllowed(false);
         spVegetales.setViewportView(tVegetales);
         spVegetales.setPreferredSize(new Dimension(135, 100000));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
@@ -119,6 +120,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         } catch (Exception e) {
         }
         tEstados.getSelectionModel().addListSelectionListener(this);
+        tEstados.getTableHeader().setReorderingAllowed(false);
         spEstados.setViewportView(tEstados);
         spEstados.setPreferredSize(new Dimension(135, 0));
         pEstados.add(spEstados, BorderLayout.CENTER);
@@ -159,6 +161,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         tParametros.setDefaultRenderer(Object.class, rParametros);
         tParametros.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tParametros.getSelectionModel().addListSelectionListener(this);
+        tParametros.getTableHeader().setReorderingAllowed(false);
         spParametros.setViewportView(tParametros);
         pParametros.add(spParametros, BorderLayout.CENTER);
         return pParametros;

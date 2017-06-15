@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.auxiliarControls;
 
 import com.ivernit.utils.Strings;
@@ -16,17 +11,19 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
 /**
- *
+ * Crea un JPasswordField que está limitado tanto por la cantidad de caracteres
+ * que se pueden introducir, como por los caracteres que se pueden introducir.
+ * Los caracteres validos son todos aquellos que cumplan la expersion almacenada
+ * en VALID_STRING_REGEX
  * @author Pablo
  */
 public class JPasswordFieldLimit extends JPasswordField {
 
-    private final int limit;
+    private final int limit = 20;
     private final String VALID_STRING_REGEX = "[0-9a-zA-Z ]*";
 
     public JPasswordFieldLimit() {
         super();
-        this.limit = 20;
     }
 
     @Override
@@ -34,6 +31,10 @@ public class JPasswordFieldLimit extends JPasswordField {
         return new LimitDocument();
     }
 
+    /**
+     * Se ha de crear una clase que permita escuchar las acciones antes de que 
+     * se lleguen a visualizar
+     */
     private class LimitDocument extends PlainDocument {
 
         @Override

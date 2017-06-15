@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
+ * Crea un render que tiene dos opciones, deshabilitar filas y seleccionarlas.
  * @author Pablo
  */
 public class SimpleTableRender implements TableCellRenderer {

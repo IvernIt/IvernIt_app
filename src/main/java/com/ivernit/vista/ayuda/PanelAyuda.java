@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- *
+ * Panel en el qué se atenderá al cliente en caso de que necesite asistencia
  * @author Pablo
  */
 public class PanelAyuda extends JInternalFrame{

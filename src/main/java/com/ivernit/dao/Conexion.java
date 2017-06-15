@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.dao;
 
 import java.io.FileInputStream;
@@ -15,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Esta clase se encarga de crear una conexion con la base de datos
  * @author Gautarra
  */
 public class Conexion {
@@ -29,7 +24,8 @@ public class Conexion {
     private static final String CONTRASEÑA = "contrasena";
 
     /**
-     *
+     * Si ya existe una conexion activa se usará esta, sino, se creara una nueva
+     * usando los paramentros del ficheo ivernit.properties
      * @return
      */
     synchronized public static Connection conectar() {
@@ -57,7 +53,7 @@ public class Conexion {
     }
 
     /**
-     * 
+     * cierrra la conxion con la base de datos
      */
     public static void close() {
         try {

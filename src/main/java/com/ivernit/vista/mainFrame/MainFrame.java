@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.mainFrame;
 
 import com.ivernit.modelo.Usuario;
@@ -18,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
+ * ventana principal del programa
  *
  * @author Pablo
  */
@@ -27,19 +23,25 @@ public class MainFrame extends JFrame {
     private final int xSize = 680;
     private final int ySize = 400;
     private final ImageIcon I_IVERNIT = new ImageIcon("icons/IvernitLogo.png");
-    private MainMenuBar menu;
-    private PanelLogin pLogin;
-    private PanelGestion pGestion;
-    private PanelRegistro pRegistro;
+    private final MainMenuBar menu;
+    private final PanelLogin pLogin;
+    private final PanelGestion pGestion;
+    private final PanelRegistro pRegistro;
 
     public MainFrame() {
         mainFrame = this;
-        pLogin = new PanelLogin(0,0);
-        pRegistro = new PanelRegistro(0,0);
-        pGestion = new PanelGestion(0,0);
+        pLogin = new PanelLogin(0, 0);
+        pRegistro = new PanelRegistro(0, 0);
+        pGestion = new PanelGestion(0, 0);
+        menu = new MainMenuBar();
         init();
     }
 
+    /**
+     * Obtiene la instancia activa de la ventana principal
+     *
+     * @return ventana activa
+     */
     public static MainFrame get() {
         return mainFrame;
     }
@@ -55,17 +57,20 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         this.setTitle(Strings.TITULO);
         this.setIconImage(I_IVERNIT.getImage());
-        menu = new MainMenuBar();
+
         menu.inicioSesion();
         this.setJMenuBar(menu);
         this.pack();
         contentPane = this.getContentPane();
         contentPane.setLayout(null);
-        contentPane.add(pLogin.init(contentPane.getWidth(),contentPane.getHeight()));
+        contentPane.add(pLogin.init(contentPane.getWidth(), contentPane.getHeight()));
         this.pack();
         this.setVisible(true);
     }
 
+    /**
+     * Muestra panel de registro
+     */
     public void mostrarRegistro() {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
@@ -73,15 +78,21 @@ public class MainFrame extends JFrame {
         contentPane.repaint();
     }
 
+    /**
+     * Muestra panel de gestión
+     */
     public void mostrarGestion() {
         Usuario usuario = pLogin.getUsuario();
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
-        contentPane.add(pGestion.init(usuario,contentPane.getWidth(), contentPane.getHeight()));
+        contentPane.add(pGestion.init(usuario, contentPane.getWidth(), contentPane.getHeight()));
         menu.sesionIniciada();
         this.revalidate();
     }
 
+    /**
+     * Muestra panel de ayuda
+     */
     public void mostrarAyuda() {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();
@@ -89,6 +100,9 @@ public class MainFrame extends JFrame {
         contentPane.repaint();
     }
 
+    /**
+     * Muestra panel de Login
+     */
     public void mostrarLogin() {
         Container contentPane = this.getContentPane();
         contentPane.removeAll();

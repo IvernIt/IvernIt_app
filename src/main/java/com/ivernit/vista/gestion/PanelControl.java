@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ivernit.vista.gestion;
 
 import com.ivernit.modelo.Invernadero;
@@ -14,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
- *
+ * En este panel se podrán ejecutar acciones manuales en el invernadero
  * @author Pablo
  */
 public class PanelControl extends JPanel{
