@@ -1,13 +1,16 @@
 package com.ivernit.utils;
 
+import javax.swing.Icon;
+
 /**
  * En esta clase se almacenan todas las strings que se le mostrarán al usuario
  * en caso de querer hacer quere hacer uan opcion de camio de idioma, habría que
  * simplemente, substituir estas variables.
+ *
  * @author Pablo
  */
 public class Strings {
-    
+
     public static String ARCHIVO = "Archivo";
     public static String INVERNADERO = "Invernadero";
     public static String VER = "Ver";
@@ -29,7 +32,7 @@ public class Strings {
     public static String VEGETAL = "Vegetal";
     public static String ESTADO = "Estado";
     public static String RIEGO = "Riego";
-    public static String HORAS_LUZ  = "Horas de luz";
+    public static String HORAS_LUZ = "Horas de luz";
     public static String TEMPERATURA = "Temperatura";
     public static String TIPO_TIERRA = "Tipo tierras";
     public static String RESULTADO = "Resultado";
@@ -67,5 +70,10 @@ public class Strings {
     public static String MADURACION = "Maduracion";
     public static String SALIR = "Salir";
     public static String MSG_CARACTERES_INVALIDOS = "No se permite introducir caráteres especiales";
-    
+    public static String Enviar = "Enviar";
+    public static String SOPORTE = "Soporte";
+    public static String OPERADOR = "Operador";
+    public static String ERROR_DE_CONCEXION = "Error de conexion, compruebe su conexion a internet";
+    public static String PREGUNTA_CAMBIAR_PARAMETROS = "Está seguro que quiere seleccionar estos parámetros?";
+    public static String PARAMETROS = "Parametros";
 }

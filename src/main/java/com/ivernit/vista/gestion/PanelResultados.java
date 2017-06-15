@@ -1,5 +1,6 @@
 package com.ivernit.vista.gestion;
 
+import com.ivernit.vista.auxiliarControls.NoEditableTableModel;
 import com.ivernit.modelo.Cultivo;
 import com.ivernit.modelo.Invernadero;
 import com.ivernit.modelo.Vegetal;
@@ -95,12 +96,13 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
     private JPanel crearPanelParametros() {
         JPanel pParametros = new JPanel(new BorderLayout());
         JScrollPane spParametros = new JScrollPane();
-        DefaultTableModel tmParametros = new DefaultTableModel(null, columnNames);
+        DefaultTableModel tmParametros = new NoEditableTableModel(null, columnNames);
         tParametros = new JTable(tmParametros);
         try {
             tParametros.setRowSelectionInterval(0, 0);
         } catch (Exception e) {
         }
+        tParametros.setEnabled(false);
         tParametros.getTableHeader().setReorderingAllowed(false);
         spParametros.setViewportView(tParametros);
         pParametros.add(spParametros, BorderLayout.CENTER);

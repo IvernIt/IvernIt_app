@@ -1,5 +1,6 @@
 package com.ivernit.vista.gestion;
 
+import com.ivernit.vista.auxiliarControls.NoEditableTableModel;
 import com.ivernit.modelo.Cultivo;
 import com.ivernit.modelo.Invernadero;
 import com.ivernit.modelo.Vegetal;
@@ -28,8 +29,11 @@ public class PanelVer extends JPanel {
         Strings.TIPO_TIERRA};
 
     public PanelVer() {
-        tmVer = new DefaultTableModel(null, columnNames);
+        tmVer = new NoEditableTableModel(null, columnNames);
+        
         JTable tVer = new JTable(tmVer);
+        
+        tVer.getTableHeader().setReorderingAllowed(false);
         JScrollPane spTabla = new JScrollPane(tVer);
         this.setLayout(new BorderLayout());
         this.add(spTabla, BorderLayout.CENTER);

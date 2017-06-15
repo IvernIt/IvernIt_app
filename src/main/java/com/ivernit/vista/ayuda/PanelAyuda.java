@@ -5,30 +5,36 @@
  */
 package com.ivernit.vista.ayuda;
 
-import com.ivernit.vista.control.IvernitActionListeners;
+import com.ivernit.ice.ClienteIce;
+import com.ivernit.modelo.Usuario;
 import com.ivernit.utils.Strings;
-import com.ivernit.vista.auxiliarControls.ControlButton;
-import com.ivernit.vista.auxiliarControls.NorthBorderPane;
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 /**
  * Panel en el qué se atenderá al cliente en caso de que necesite asistencia
+ *
  * @author Pablo
  */
-public class PanelAyuda extends JInternalFrame{
+public class PanelAyuda extends JInternalFrame implements ActionListener{
 
     private int xPos;
     private int yPos;
-    private int Width;
-    private int Height;
-    
+    private int Width = 300;
+    private int Height = 335;
+    ClienteIce cliente;
+    JTextField tfEnviar;
+    JTextArea mensajes;
     public PanelAyuda(int parentWidth, int parentHeight) {
         xPos = parentWidth / 2 - Width / 2;
         yPos = parentHeight / 2 - Height / 2;
@@ -36,23 +42,45 @@ public class PanelAyuda extends JInternalFrame{
     }
 
     private void initComponents() {
+        this.setTitle(Strings.SOPORTE);
+        this.setBounds(xPos, yPos, Width, Height);
+        this.setLayout(new BorderLayout());
+        this.setIconifiable(false);
+        this.setFrameIcon(null);
         Container contentPane = this.getContentPane();
-        JPanel pConcepto = new JPanel(new GridLayout(1,2));
-        JPanel pMensaje = new JPanel(new GridLayout(1,2));
-        ControlButton bEnviar = new ControlButton(Strings.ENVIAR,IvernitActionListeners.ENVIAR_AYUDA);
-        JLabel lConcepto = new JLabel(Strings.CONCEPTO);
-        JLabel lMensaje = new JLabel(Strings.MENSAJE);
-        JTextField tfConcepto = new JTextField();
-        JTextArea taMensaje = new JTextArea();
         contentPane.setLayout(new BorderLayout());
-        pConcepto.add(new NorthBorderPane(lConcepto));
-        pConcepto.add(new NorthBorderPane((tfConcepto)));
-        contentPane.add(pConcepto,BorderLayout.NORTH);
-        pMensaje.add(new NorthBorderPane(lMensaje));
-        pMensaje.add(tfConcepto);
-        contentPane.add(pMensaje,BorderLayout.CENTER);
-        contentPane.add(bEnviar, BorderLayout.SOUTH);
+        JScrollPane spMensajes = new JScrollPane();
+        mensajes = new JTextArea();
+        mensajes.setEditable(false);
+        spMensajes.setViewportView(mensajes);
+        JPanel pEscribir = new JPanel(new BorderLayout());
+        JButton bEnviar = new JButton(Strings.Enviar);
+        tfEnviar = new JTextField();
+        tfEnviar.addActionListener(this);
+        bEnviar.addActionListener(this);
+        pEscribir.add(tfEnviar, BorderLayout.CENTER);
+        pEscribir.add(bEnviar, BorderLayout.EAST);
+        contentPane.add(spMensajes, BorderLayout.CENTER);
+        contentPane.add(pEscribir, BorderLayout.SOUTH);
+        cliente= new ClienteIce(mensajes);
+        String[] args = {""};
+        cliente.start();
+        this.addInternalFrameListener(new InternalFrameAdapter(){
+            public void internalFrameClosing(InternalFrameEvent e) {
+                cliente.cerrar();
+                
+            }
+        });
+        this.setVisible(true);
     }
-    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String mensaje = tfEnviar.getText() ;
+        String texto = Usuario.getUsuarioActivo().getNombre() +  ": " +  mensaje+ "\n";
+        tfEnviar.setText("");
+        mensajes.setText(mensajes.getText()+ texto);
+        cliente.enviarMensaje(mensaje);
+    }
     
 }

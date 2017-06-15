@@ -88,6 +88,7 @@ public class MainFrame extends JFrame {
         contentPane.add(pGestion.init(usuario, contentPane.getWidth(), contentPane.getHeight()));
         menu.sesionIniciada();
         this.revalidate();
+        this.repaint();
     }
 
     /**

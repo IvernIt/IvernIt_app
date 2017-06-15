@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  * En este panel se muestran todas las opciones de gestión.
+ *
  * @author Pablo
  */
 public class PanelGestion extends JPanel implements ListSelectionListener {
@@ -34,6 +35,7 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
     private PanelResultados pResultado;
     private PanelControl pControl;
     private Usuario usuarioActivo;
+    private boolean inicializando;
 
     public PanelGestion(int parentWidth, int parentHeight) {
         width = parentWidth;
@@ -82,43 +84,37 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
-            actualizarPanel(e.getFirstIndex());
-        }
-    }
-
-    private void actualizarPanel(int firstIndex) {
-        switch (tpGestion.getSelectedIndex()) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            default:
-                break;
+        if (!this.inicializando) {
+            if (!e.getValueIsAdjusting()) {
+                actualizarDatos();
+            }
         }
     }
 
     private void rellenarInvernaderos() {
+        this.inicializando = true;
         SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
-        modelo.setRowCount(0);
+        modelo.borrarDatos();
         if (usuarioActivo != null) {
             ArrayList<Invernadero> invernaderos = usuarioActivo.getInvernaderos();
             for (Invernadero invernadero : invernaderos) {
-                modelo.addElement(invernadero.getNombre());
+                modelo.addInv(invernadero);
             }
             try {
                 tInvernderos.setRowSelectionInterval(0, 0);
             } catch (Exception e) {
             }
         }
+        this.inicializando = false;
     }
+
     /**
      * Una vez iniciada la sesión, se cargará la información del usuario
+     *
      * @param usuario usuario logeado
      * @param parentWidth ancho de la ventana principal
      * @param parentHeight alto de la ventana principal
-     * @return 
+     * @return
      */
     public PanelGestion init(Usuario usuario, int parentWidth, int parentHeight) {
         this.width = parentWidth;
@@ -130,21 +126,15 @@ public class PanelGestion extends JPanel implements ListSelectionListener {
         this.actualizarDatos();
         return this;
     }
-    
+
     private void actualizarDatos() {
         SingleColTableModel modelo = (SingleColTableModel) tInvernderos.getModel();
-        String strInvernadero = modelo.getElement(tInvernderos.getSelectedRow());
+        Invernadero selectedInv = modelo.getInv(tInvernderos.getSelectedRow());
         if (usuarioActivo != null) {
-            for (Invernadero inv : usuarioActivo.getInvernaderos()) {
-                if(inv.getNombre().equals(strInvernadero)) {
-                    pVer.actualizarDatos(inv);
-                    pModificar.actualizarDatos(inv);
-                    pResultado.actualizarDatos(inv);
-                    pControl.actualizarDatos(inv);
-                    break;
-                }
-            }
+            pVer.actualizarDatos(selectedInv);
+            pModificar.actualizarDatos(selectedInv);
+            pResultado.actualizarDatos(selectedInv);
+            pControl.actualizarDatos(selectedInv);
         }
     }
-
 }

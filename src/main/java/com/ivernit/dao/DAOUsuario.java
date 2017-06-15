@@ -58,6 +58,7 @@ public class DAOUsuario {
             if (rs.next()) {
                 usuario.setId(rs.getInt("uId"));
                 usuario.setPremium(rs.getBoolean("uPremium"));
+                usuario.setContraseña(rs.getString("uContrasena"));
                 usuario.setNombre(rs.getString("uNombre"));
             }
 

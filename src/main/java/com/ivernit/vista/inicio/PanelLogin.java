@@ -10,6 +10,11 @@ import com.ivernit.vista.auxiliarControls.JPasswordFieldLimit;
 import com.ivernit.vista.auxiliarControls.JTextFieldLimit;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -19,6 +24,7 @@ import javax.swing.JPanel;
 
 /**
  * Este panel se usará para recoger datos del usuario que se quiere logear
+ *
  * @author Pablo
  */
 public class PanelLogin extends JInternalFrame {
@@ -88,11 +94,24 @@ public class PanelLogin extends JInternalFrame {
     }
 
     public boolean login() {
-        boolean logged = true;
-        if (logged) {
+        boolean logged = false;
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+            String contrasena = String.valueOf(pfContraseña.getPassword());
+            md.update(contrasena.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            String digest = String.format("%064x", new java.math.BigInteger(1, md.digest()));
+
             DAOUsuario daoUsuario = new DAOUsuario();
             Usuario activo = daoUsuario.getUsuario(tfUsuario.getText());
-            Usuario.setUsuarioActivo(activo);
+            if (digest.equals(activo.getContraseña())) {
+                logged = true;
+            }
+            if (logged) {
+                Usuario.setUsuarioActivo(activo);
+            }
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            Logger.getLogger(PanelLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return logged;
     }

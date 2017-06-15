@@ -5,6 +5,7 @@
  */
 package com.ivernit.vista.gestion;
 
+import com.ivernit.vista.auxiliarControls.NoEditableTableModel;
 import com.ivernit.modelo.Cultivo;
 import com.ivernit.modelo.Invernadero;
 import com.ivernit.modelo.Parametros;
@@ -18,12 +19,14 @@ import com.ivernit.utils.Strings;
 import com.ivernit.vista.auxiliarControls.ImagePanel;
 import com.ivernit.vista.auxiliarControls.SimpleTableRender;
 import com.ivernit.vista.auxiliarControls.SingleColTableModel;
+import com.ivernit.vista.mainFrame.MainFrame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,6 +39,7 @@ import javax.ws.rs.core.GenericType;
 
 /**
  * En este pane se mustrá los parametros que se pueden cambiar en el cultivo
+ *
  * @author Pablo
  */
 public class PanelModificar extends JPanel implements ListSelectionListener {
@@ -43,6 +47,8 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private JPanel pIdeal;
     private final String IMAGEN_PREMIUM = "icons/premium.png";
     private CultivoIdeal cultivoIdeal;
+    private boolean inicializando = false;
+
     private enum Columnas {
         riego, luz, temperatura, tierra, total
     };
@@ -51,7 +57,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
-    
+
     private JTable tParametros;
     private JTable tVegetales;
     private JTable tEstados;
@@ -59,15 +65,16 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private final String SEPARADOR_VEGETAL = " | ";
     private SimpleTableRender rEstados;
     private SimpleTableRender rParametros;
-    
+
     public PanelModificar() {
         cultivoIdeal = new CultivoIdeal();
         this.setLayout(new BorderLayout());
         this.add(crearPanelListaVegetales(), BorderLayout.WEST);
         this.add(crearPanelSeleccion(), BorderLayout.CENTER);
     }
-    
+
     private JPanel crearPanelListaVegetales() {
+        inicializando = true;
         JPanel pVegetales = new JPanel(new BorderLayout());
         JScrollPane spVegetales = new JScrollPane();
         SingleColTableModel tmVegetales = new SingleColTableModel();
@@ -84,24 +91,25 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         spVegetales.setPreferredSize(new Dimension(135, 100000));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
         pVegetales.add(new EditToolbar(tVegetales), BorderLayout.PAGE_START);
+        inicializando = false;
         return pVegetales;
-        
+
     }
-    
+
     private JPanel crearPanelSeleccion() {
         JPanel pSeleccion = new JPanel(new GridLayout(2, 1));
         pSeleccion.add(crearPanelElegirEstado());
         pSeleccion.add(crearPanelParametros());
         return pSeleccion;
     }
-    
+
     private JPanel crearPanelElegirEstado() {
         JPanel pElegirFase = new JPanel(new BorderLayout());
         pElegirFase.add(crearPanelListaEstados(), BorderLayout.WEST);
         pElegirFase.add(crearPanelCultivoIdeal(), BorderLayout.CENTER);
         return pElegirFase;
     }
-    
+
     private JPanel crearPanelListaEstados() {
         JPanel pEstados = new JPanel(new BorderLayout());
         JScrollPane spEstados = new JScrollPane();
@@ -126,7 +134,7 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         pEstados.add(spEstados, BorderLayout.CENTER);
         return pEstados;
     }
-    
+
     private JPanel crearPanelCultivoIdeal() {
         JPanel premiunPane = new ImagePanel(IMAGEN_PREMIUM);
         pIdeal = new JPanel(new GridLayout(4, 2));
@@ -148,15 +156,15 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         pIdeal.add(new NorthBorderPane(lTipoTierra));
         pIdeal.add(new NorthBorderPane(tfTierraIdeal));
         pIdeal.setOpaque(true);
-        premiunPane.add(pIdeal,BorderLayout.CENTER);        
+        premiunPane.add(pIdeal, BorderLayout.CENTER);
         return premiunPane;
     }
-    
+
     private JPanel crearPanelParametros() {
         JPanel pParametros = new JPanel(new BorderLayout());
         JScrollPane spParametros = new JScrollPane();
         rParametros = new SimpleTableRender();
-        DefaultTableModel tmParametros = new DefaultTableModel(null, columnasParametros);
+        DefaultTableModel tmParametros = new NoEditableTableModel(null, columnasParametros);
         tParametros = new JTable(tmParametros);
         tParametros.setDefaultRenderer(Object.class, rParametros);
         tParametros.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -166,21 +174,27 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         pParametros.add(spParametros, BorderLayout.CENTER);
         return pParametros;
     }
-    
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (e.getSource() instanceof ListSelectionModel) {
-            ListSelectionModel source = (ListSelectionModel) e.getSource();
-            if (source == tEstados.getSelectionModel()) {
-                
-            } else if (source == tVegetales.getSelectionModel()) {
-                
-            } else if (source == tParametros.getSelectionModel()) {
-                
+        if (!inicializando) {
+            if (e.getSource() instanceof ListSelectionModel) {
+                ListSelectionModel source = (ListSelectionModel) e.getSource();
+                if (source == tVegetales.getSelectionModel()) {
+                    actualizarEstados();
+                    actualizarParametros();
+                } else if (source == tEstados.getSelectionModel()) {
+                    actualizarParametros();
+                } else if (source == tParametros.getSelectionModel()) {
+                    if (JOptionPane.showConfirmDialog(MainFrame.get(), Strings.PREGUNTA_CAMBIAR_PARAMETROS, Strings.PARAMETROS, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                        ((SimpleTableRender) tParametros.getDefaultRenderer(Object.class)).setActiva(source.getMaxSelectionIndex());
+
+                    }
+                }
             }
         }
     }
-    
+
     public void actualizarDatos(Invernadero inv) {
         invernaderoActivo = inv;
         actualizarVegetales();
@@ -191,10 +205,11 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         } else {
             pIdeal.setVisible(false);
         }
-        
+
     }
-    
+
     private void actualizarParametros() {
+        inicializando = true;
         Parametros parametroActivo = null;
         if (invernaderoActivo.getCultivo().size() > 0) {
             SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
@@ -230,9 +245,11 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
             } catch (Exception e) {
             }
         }
+        inicializando = false;
     }
-    
+
     private void actualizarVegetales() {
+        inicializando = true;
         SingleColTableModel modelo = (SingleColTableModel) tVegetales.getModel();
         modelo.setRowCount(0);
         for (Cultivo cult : this.invernaderoActivo.getCultivo()) {
@@ -242,14 +259,20 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
             tVegetales.setRowSelectionInterval(0, 0);
         } catch (Exception e) {
         }
-    }    
-    
-    private void rellenarPanelIdea() {
-        GenericType<Resultados> gType = new GenericType<Resultados>() {};
-        Resultados rIdeal = (Resultados) cultivoIdeal.getXml(gType, "1","1");
-        
+        inicializando = false;
     }
-    
-    
-    
+
+    private void actualizarEstados() {
+        inicializando = true;
+
+        inicializando = false;
+    }
+
+    private void rellenarPanelIdea() {
+        GenericType<Resultados> gType = new GenericType<Resultados>() {
+        };
+        Resultados rIdeal = (Resultados) cultivoIdeal.getXml(gType, "1", "1");
+
+    }
+
 }

@@ -93,4 +93,8 @@ public class SingleColTableModel extends DefaultTableModel {
         }
         this.removeRow(row);
     }
+
+    public void borrarDatos() {
+        setDataVector(null, columnIdentifiers);
+    }
 }
