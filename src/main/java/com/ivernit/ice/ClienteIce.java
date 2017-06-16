@@ -37,7 +37,7 @@ public class ClienteIce extends Thread {
         this.area = area;
         teclado = new Scanner(System.in);
         comm = Ice.Util.initialize();
-        Ice.ObjectPrx base = comm.stringToProxy("Moderador:tcp -h 172.17.28.4 -p 5577");
+        Ice.ObjectPrx base = comm.stringToProxy("Moderador:tcp -h 172.17.28.58 -p 5577");
         try {
             proxy = ModeradorPrxHelper.checkedCast(base);
         } catch (Exception e) {

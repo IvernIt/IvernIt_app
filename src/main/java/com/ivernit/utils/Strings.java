@@ -76,4 +76,7 @@ public class Strings {
     public static String ERROR_DE_CONCEXION = "Error de conexion, compruebe su conexion a internet";
     public static String PREGUNTA_CAMBIAR_PARAMETROS = "Está seguro que quiere seleccionar estos parámetros?";
     public static String PARAMETROS = "Parametros";
+    public static String MENOR_QUE = "Minimo";
+    public static String MAYOR_QUE = "Máximo";
+    public static String HAZTE_PREMIUM = "Hazte Premium";
 }

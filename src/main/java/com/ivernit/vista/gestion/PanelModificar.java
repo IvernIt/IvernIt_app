@@ -65,6 +65,13 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
     private final String SEPARADOR_VEGETAL = " | ";
     private SimpleTableRender rEstados;
     private SimpleTableRender rParametros;
+    private JTextField tfAguaIdealMin;
+    private JTextField tfAguaIdealMax;
+    private JTextField tfLuzIdealMin;
+    private JTextField tfLuzIdealMax;
+    private JTextField tfTemperaturaIdealMin;
+    private JTextField tfTemperaturaIdealMax;
+    private JTextField tfTierraIdeal;
 
     public PanelModificar() {
         cultivoIdeal = new CultivoIdeal();
@@ -137,22 +144,33 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
 
     private JPanel crearPanelCultivoIdeal() {
         JPanel premiunPane = new ImagePanel(IMAGEN_PREMIUM);
-        pIdeal = new JPanel(new GridLayout(4, 2));
+        pIdeal = new JPanel(new GridLayout(5, 3, 10, 0));
         pIdeal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JLabel lAgua = new JLabel(Strings.RIEGO);
         JLabel lLuz = new JLabel(Strings.HORAS_LUZ);
         JLabel lTemperatura = new JLabel(Strings.TEMPERATURA);
         JLabel lTipoTierra = new JLabel(Strings.TIPO_TIERRA);
-        JTextField tfAguaIdeal = new DisabledJTextField("");
-        JTextField tfLuzIdeal = new DisabledJTextField("");
-        JTextField tfTemperaturaIdeal = new DisabledJTextField("");
-        JTextField tfTierraIdeal = new DisabledJTextField("");
+        JLabel lMenorQue = new JLabel(Strings.MENOR_QUE);
+        JLabel lMayorQue = new JLabel(Strings.MAYOR_QUE);
+        tfAguaIdealMin = new DisabledJTextField("");
+        tfAguaIdealMax = new DisabledJTextField("");
+        tfLuzIdealMin = new DisabledJTextField("");
+        tfLuzIdealMax = new DisabledJTextField("");
+        tfTemperaturaIdealMin = new DisabledJTextField("");
+        tfTemperaturaIdealMax = new DisabledJTextField("");
+        tfTierraIdeal = new DisabledJTextField("");
+        pIdeal.add(new NorthBorderPane(new JLabel()));
+        pIdeal.add(new NorthBorderPane(lMenorQue));
+        pIdeal.add(new NorthBorderPane(lMayorQue));
         pIdeal.add(new NorthBorderPane(lAgua));
-        pIdeal.add(new NorthBorderPane(tfAguaIdeal));
+        pIdeal.add(new NorthBorderPane(tfAguaIdealMin));
+        pIdeal.add(new NorthBorderPane(tfAguaIdealMax));
         pIdeal.add(new NorthBorderPane(lLuz));
-        pIdeal.add(new NorthBorderPane(tfLuzIdeal));
+        pIdeal.add(new NorthBorderPane(tfLuzIdealMin));
+        pIdeal.add(new NorthBorderPane(tfLuzIdealMax));
         pIdeal.add(new NorthBorderPane(lTemperatura));
-        pIdeal.add(new NorthBorderPane(tfTemperaturaIdeal));
+        pIdeal.add(new NorthBorderPane(tfTemperaturaIdealMin));
+        pIdeal.add(new NorthBorderPane(tfTemperaturaIdealMax));
         pIdeal.add(new NorthBorderPane(lTipoTierra));
         pIdeal.add(new NorthBorderPane(tfTierraIdeal));
         pIdeal.setOpaque(true);
@@ -272,7 +290,29 @@ public class PanelModificar extends JPanel implements ListSelectionListener {
         GenericType<Resultados> gType = new GenericType<Resultados>() {
         };
         Resultados rIdeal = (Resultados) cultivoIdeal.getXml(gType, "1", "1");
-
+        if (rIdeal.getResultado().size() > 0) {
+            if (rIdeal.getResultado().get(0).getAgua().getMinInclusive() != null) {
+                tfAguaIdealMin.setText(String.valueOf(rIdeal.getResultado().get(0).getAgua().getMinInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getAgua().getMaxInclusive() != null) {
+                tfAguaIdealMax.setText(String.valueOf(rIdeal.getResultado().get(0).getAgua().getMaxInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getTemperatura().getMinInclusive() != null) {
+                tfTemperaturaIdealMin.setText(String.valueOf(rIdeal.getResultado().get(0).getTemperatura().getMinInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getTemperatura().getMaxInclusive() != null) {
+                tfTemperaturaIdealMax.setText(String.valueOf(rIdeal.getResultado().get(0).getTemperatura().getMaxInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getLuz().getMinInclusive() != null) {
+                tfLuzIdealMin.setText(String.valueOf(rIdeal.getResultado().get(0).getLuz().getMinInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getLuz().getMaxInclusive() != null) {
+                tfLuzIdealMax.setText(String.valueOf(rIdeal.getResultado().get(0).getLuz().getMaxInclusive()));
+            }
+            if (rIdeal.getResultado().get(0).getTierra() != null) {
+                tfTierraIdeal.setText(rIdeal.getResultado().get(0).getTierra());
+            }
+        }
     }
 
 }

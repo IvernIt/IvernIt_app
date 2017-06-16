@@ -27,10 +27,11 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * En este panel se introducirán los resultado obtenidos
+ *
  * @author Pablo
  */
 public class PanelResultados extends JPanel implements ListSelectionListener {
-
+    
     private enum Columnas {
         estado, riego, luz, temperatura, tierra, total
     };
@@ -45,13 +46,13 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         Strings.HORAS_LUZ,
         Strings.TEMPERATURA,
         Strings.TIPO_TIERRA};
-
+    
     public PanelResultados() {
         this.setLayout(new BorderLayout());
         this.add(crearPanelListaVegetales(), BorderLayout.WEST);
         this.add(crearPanelResultados(), BorderLayout.CENTER);
     }
-
+    
     private JPanel crearPanelListaVegetales() {
         JPanel pVegetales = new JPanel(new BorderLayout());
         JScrollPane spVegetales = new JScrollPane();
@@ -69,16 +70,16 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         spVegetales.setPreferredSize(new Dimension(135, 0));
         pVegetales.add(spVegetales, BorderLayout.CENTER);
         return pVegetales;
-
+        
     }
-
+    
     private JPanel crearPanelResultados() {
         JPanel pSeleccion = new JPanel(new GridLayout(2, 1));
         pSeleccion.add(crearPanelParametros());
         pSeleccion.add(crearPanelNota());
         return pSeleccion;
     }
-
+    
     private JPanel crearPanelNota() {
         JPanel pNota = new JPanel(new GridLayout(1, 2));
         pNota.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -92,7 +93,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         pNota.add(tfResultado);
         return pNota;
     }
-
+    
     private JPanel crearPanelParametros() {
         JPanel pParametros = new JPanel(new BorderLayout());
         JScrollPane spParametros = new JScrollPane();
@@ -108,12 +109,12 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         pParametros.add(spParametros, BorderLayout.CENTER);
         return pParametros;
     }
-
+    
     @Override
     public void valueChanged(ListSelectionEvent e) {
-
+        
     }
-
+    
     public void actualizarDatos(Invernadero inv) {
         this.invernaderoActivo = inv;
         this.actualizarVegetales();
@@ -123,7 +124,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
             Logger.getLogger(PanelResultados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void actualizarVegetales() {
         SingleColTableModel modelo = (SingleColTableModel) tVegetales.getModel();
         modelo.setRowCount(0);
@@ -135,11 +136,13 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
         } catch (Exception e) {
         }
     }
-
+    
     private void actializarParametros() throws ParseException {
+        DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
+        modeloParametos.setDataVector(null, columnNames);
+        tfResultado.setText("");
         if (invernaderoActivo.getCultivo().size() > 0) {
             SingleColTableModel modeloVegetales = (SingleColTableModel) tVegetales.getModel();
-            DefaultTableModel modeloParametos = (DefaultTableModel) tParametros.getModel();
             String[] vegetalActivo = modeloVegetales.getElement(tVegetales.getSelectedRow()).split("(" + SEPARADOR_VEGETAL + ")");
             String nombreVegetal = vegetalActivo[0];
             Date fechaInicio = Date.valueOf(vegetalActivo[2]);
@@ -167,7 +170,7 @@ public class PanelResultados extends JPanel implements ListSelectionListener {
                 tVegetales.setRowSelectionInterval(0, 0);
             } catch (Exception e) {
             }
-
+            
         }
     }
 }
