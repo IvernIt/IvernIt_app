@@ -64,5 +64,9 @@ public class Strings {
     public static String EDITAR = "Editar";
     public static String UNIDAD_RIEGO = "L / m2";
     public static String UNIDAD_TEMPERATURA = "ºC";
+    public static String TEST_FALLO = "Test de fallo";
+    public static String ACEPTAR = "Aceptar";
+    public static String SOLUCION = "¿Has probado a apagar y encender?";
+    public static String TITULO_ERROR = "¡Error grave!";
     
 }

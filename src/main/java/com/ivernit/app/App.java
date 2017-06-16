@@ -25,7 +25,7 @@ public class App {
 
     public App() {
         try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
             
         } catch (Exception e) {
             e.printStackTrace();

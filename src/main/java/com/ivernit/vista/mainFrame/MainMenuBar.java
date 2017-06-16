@@ -25,6 +25,7 @@ public class MainMenuBar extends JMenuBar {
     private JMenuItem miVerPerfil;
     private JMenuItem miPedirAsistencia;
     private JMenuItem miAcercaDe;
+    private JMenuItem miTestFallo;
 
     public MainMenuBar() {
         initComponents();
@@ -44,6 +45,7 @@ public class MainMenuBar extends JMenuBar {
         JMenu mAyuda = new JMenu(Strings.AYUDA);
         miPedirAsistencia = nuevoItem(Strings.PEDIR_ASISTENCIA, IvernitActionListeners.PEDIR_AYUDA);
         miAcercaDe = nuevoItem(Strings.ACERCA_DE, IvernitActionListeners.ACERCA_DE);
+        miTestFallo = nuevoItem(Strings.TEST_FALLO, IvernitActionListeners.TEST_FALLO);
         mArchivo.add(miLogin);
         mArchivo.add(miRegistrarse);
         mArchivo.add(miCerrarSesion);
@@ -52,6 +54,7 @@ public class MainMenuBar extends JMenuBar {
         mVer.add(miVerPerfil);
         mAyuda.add(miPedirAsistencia);
         mAyuda.add(miAcercaDe);
+        mAyuda.add(miTestFallo);
         this.add(mArchivo);
         this.add(mInvernadero);
         this.add(mVer);
